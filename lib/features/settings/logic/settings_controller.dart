@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../app.dart';
+import '../../../core/providers.dart';
 
 /// Audio priority order (PRD §7): muteAll > greetingEnabled > randomGreeting.
 /// [audioAllowed] is the single place that encodes it.

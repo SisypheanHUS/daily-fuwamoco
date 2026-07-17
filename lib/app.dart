@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/theme/app_theme.dart';
 import 'features/greeting/ui/greeting_screen.dart';
 import 'features/home/ui/home_screen.dart';
 import 'features/settings/ui/settings_screen.dart';
-
-final sharedPreferencesProvider = Provider<SharedPreferences>(
-  (ref) => throw UnimplementedError('Overridden in main()'),
-);
 
 class DailyRuffianApp extends StatefulWidget {
   const DailyRuffianApp({super.key, required this.initialLocation});

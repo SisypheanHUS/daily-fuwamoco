@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
+import 'core/providers.dart';
 import 'core/utils/local_date.dart';
 import 'features/greeting/logic/greeting_gate.dart';
 import 'features/settings/logic/settings_controller.dart';

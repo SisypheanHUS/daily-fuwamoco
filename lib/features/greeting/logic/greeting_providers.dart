@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../app.dart';
+import '../../../core/providers.dart';
 import '../data/greeting_content_provider.dart';
 import '../data/greeting_pack_repository.dart';
 import '../data/audio_clip.dart';

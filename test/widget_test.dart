@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:daily_ruffian/app.dart';
+import 'package:daily_ruffian/core/providers.dart';
 
 void main() {
   testWidgets('home screen renders streak, quote and next stream sections',
