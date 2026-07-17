@@ -1,0 +1,9 @@
+{
+  "pack_id": "default",
+  "pack_name": "FUWAMOCO Default Greetings (placeholder tones)",
+  "clips": [
+    { "id": "morning_01", "file": "morning_01.wav", "tags": ["generic"], "weight": 1 },
+    { "id": "morning_02", "file": "morning_02.wav", "tags": ["generic"], "weight": 1 },
+    { "id": "morning_03", "file": "morning_03.wav", "tags": ["generic"], "weight": 1 }
+  ]
+}

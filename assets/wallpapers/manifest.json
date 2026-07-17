@@ -1,0 +1,9 @@
+{
+  "wallpapers": [
+    { "id": "dawn_blue", "type": "gradient", "colors": ["#0F1420", "#2B3A55"] },
+    { "id": "soft_pink", "type": "gradient", "colors": ["#1A1216", "#4A2E3C"] },
+    { "id": "morning_gold", "type": "gradient", "colors": ["#171310", "#4D3B22"] },
+    { "id": "misty_grey", "type": "gradient", "colors": ["#121212", "#3A3A3E"] },
+    { "id": "forest_calm", "type": "gradient", "colors": ["#0F1712", "#2C4435"] }
+  ]
+}
