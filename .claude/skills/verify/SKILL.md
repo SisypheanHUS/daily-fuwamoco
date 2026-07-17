@@ -49,3 +49,7 @@ browser and can take 30s+; later reloads boot in ~4-7s.
   (CDP timeout). One screenshot per batch is safe.
 - dwds "injected client" TypeErrors in the console are Flutter tooling noise,
   not app errors.
+- `CompanionMascot` runs an infinite breathing `AnimationController.repeat(reverse: true)`.
+  Any screen that shows it (greeting, home) will hang `tester.pumpAndSettle()`
+  forever, since there's always a pending frame. Use bounded `tester.pump(duration)`
+  calls in widget tests instead — see `test/widget_test.dart`.

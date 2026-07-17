@@ -31,3 +31,8 @@ flutter:
     - assets/quotes/quotes.json
     - assets/wallpapers/manifest.json
     - assets/schedule/schedule.json
+
+  fonts:
+    - family: Quicksand
+      fonts:
+        - asset: assets/fonts/Quicksand-Variable.ttf

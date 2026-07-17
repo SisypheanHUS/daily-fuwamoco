@@ -12,6 +12,7 @@ import '../../content/data/wallpaper_repository.dart';
 import '../../schedule/data/schedule_repository.dart';
 import '../../settings/logic/settings_controller.dart';
 import '../../streak/logic/streak_service.dart';
+import '../../../shared/widgets/companion_mascot.dart';
 import '../../../shared/widgets/wallpaper_background.dart';
 import '../data/greeting_context.dart';
 import '../logic/greeting_providers.dart';
@@ -33,6 +34,7 @@ class _GreetingScreenState extends ConsumerState<GreetingScreen>
 
   late final AnimationController _controller;
   late final Animation<double> _fadeIn;
+  late final Animation<double> _mascotIn;
   late final Animation<double> _titleIn;
   late final Animation<double> _quoteIn;
   late final Animation<double> _footerIn;
@@ -44,8 +46,12 @@ class _GreetingScreenState extends ConsumerState<GreetingScreen>
     super.initState();
     _controller = AnimationController(vsync: this, duration: _sequence);
     _fadeIn = _slice(0.00, 0.15);
-    _titleIn = _slice(0.12, 0.35);
-    _quoteIn = _slice(0.45, 0.70);
+    _mascotIn = CurvedAnimation(
+      parent: _controller,
+      curve: const Interval(0.05, 0.32, curve: Curves.elasticOut),
+    );
+    _titleIn = _slice(0.20, 0.42);
+    _quoteIn = _slice(0.48, 0.70);
     _footerIn = _slice(0.72, 0.95);
 
     final todayKey = localDateKey(DateTime.now());
@@ -115,16 +121,22 @@ class _GreetingScreenState extends ConsumerState<GreetingScreen>
               child: Padding(
                 padding: const EdgeInsets.all(Gap.lg),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Spacer(flex: 2),
+                    ScaleTransition(
+                      scale: _mascotIn,
+                      child: const CompanionMascot(size: 128, sleepy: true),
+                    ),
+                    const SizedBox(height: Gap.lg),
                     _Reveal(
                       animation: _titleIn,
                       child: Text(
                         'Good Morning,\nRuffian.',
+                        textAlign: TextAlign.center,
                         style: textTheme.displaySmall?.copyWith(
                           color: Colors.white,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w700,
                           height: 1.15,
                         ),
                       ),
@@ -135,6 +147,7 @@ class _GreetingScreenState extends ConsumerState<GreetingScreen>
                         animation: _quoteIn,
                         child: Text(
                           quote.text,
+                          textAlign: TextAlign.center,
                           style: textTheme.titleMedium?.copyWith(
                             color: Colors.white.withValues(alpha: 0.85),
                             fontStyle: FontStyle.italic,
@@ -206,11 +219,10 @@ class _FooterInfo extends StatelessWidget {
         ? 'Next stream: TBA'
         : 'Next stream: ${next!.title} · ${DateFormat('EEE d MMM, HH:mm').format(next!.start)}';
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('🔥 $streak day streak', style: style),
         const SizedBox(height: Gap.xs),
-        Text(nextLabel, style: style),
+        Text(nextLabel, style: style, textAlign: TextAlign.center),
       ],
     );
   }

@@ -43,7 +43,11 @@ void main() {
     expect(prefs.getString('greeting_started'), isNotNull);
 
     await tester.tap(find.text('Good Morning,\nRuffian.'));
-    await tester.pumpAndSettle();
+    // pumpAndSettle would hang forever: the home screen's mascot breathes
+    // in an infinite repeat(reverse: true) loop by design, so it never
+    // "settles". Pump a bounded duration for the route transition instead.
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
 
     expect(find.text('Daily Ruffian'), findsOneWidget); // home
     expect(prefs.getString('greeting_completed'), isNotNull);

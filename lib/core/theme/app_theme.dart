@@ -17,13 +17,22 @@ abstract final class AppTheme {
           ? const Color(0xFF121212)
           : const Color(0xFFFAFAFA),
     );
-    return ThemeData(
+    final base = ThemeData(
       colorScheme: scheme,
       scaffoldBackgroundColor: scheme.surface,
+      fontFamily: 'Quicksand',
+    );
+    // Derive the app bar title from the theme's own text style so the font
+    // family stays declared in one place (ThemeData.fontFamily above).
+    return base.copyWith(
       appBarTheme: AppBarTheme(
         backgroundColor: scheme.surface,
         elevation: 0,
         centerTitle: false,
+        titleTextStyle: base.textTheme.titleLarge?.copyWith(
+          fontWeight: FontWeight.w700,
+          color: scheme.onSurface,
+        ),
       ),
     );
   }

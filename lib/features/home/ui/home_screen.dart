@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_theme.dart';
+import '../../../shared/widgets/companion_mascot.dart';
 import '../../content/data/quote_repository.dart';
 import '../../schedule/data/schedule_repository.dart';
 import '../../streak/logic/streak_service.dart';
@@ -21,6 +22,10 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: const Padding(
+          padding: EdgeInsets.all(Gap.xs),
+          child: CompanionMascot(size: 36),
+        ),
         title: const Text('Daily Ruffian'),
         actions: [
           IconButton(
@@ -42,7 +47,7 @@ class HomeScreen extends ConsumerWidget {
                   children: [
                     Text('$streak day streak',
                         style: textTheme.titleLarge
-                            ?.copyWith(fontWeight: FontWeight.w600)),
+                            ?.copyWith(fontWeight: FontWeight.w700)),
                     Text('See you tomorrow morning!',
                         style: textTheme.bodyMedium
                             ?.copyWith(color: scheme.onSurfaceVariant)),
@@ -91,6 +96,12 @@ class HomeScreen extends ConsumerWidget {
               ],
             ),
           ),
+          const SizedBox(height: Gap.md),
+          _ActionCard(
+            icon: Icons.replay_rounded,
+            label: 'Replay this morning\'s greeting',
+            onTap: () => context.push('/greeting'),
+          ),
         ],
       ),
     );
@@ -112,6 +123,59 @@ class _Card extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: child,
+    );
+  }
+}
+
+/// A tappable card for secondary actions — visually lighter than [_Card] so
+/// content reads first and actions read second.
+class _ActionCard extends StatelessWidget {
+  const _ActionCard({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: onTap,
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(
+            horizontal: Gap.md,
+            vertical: Gap.md,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: scheme.outlineVariant),
+          ),
+          child: Row(
+            children: [
+              Icon(icon, color: scheme.primary),
+              const SizedBox(width: Gap.md),
+              Expanded(
+                child: Text(
+                  label,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall
+                      ?.copyWith(fontWeight: FontWeight.w600),
+                ),
+              ),
+              Icon(Icons.chevron_right_rounded, color: scheme.onSurfaceVariant),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
