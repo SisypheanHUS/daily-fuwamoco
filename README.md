@@ -18,8 +18,8 @@ voice, wallpaper, quote, streak, next stream.
 Add greetings/quotes/wallpapers/schedule by editing JSON under `assets/` —
 no code changes:
 
-- `assets/audio/greetings/default/manifest.json` — voice clips (current .wav files
-  are placeholder tones; drop in real licensed recordings + entries)
+- `assets/audio/greetings/default/manifest.json` — voice clips (mp3); add a file
+  + a manifest entry to grow the pool
 - `assets/quotes/quotes.json`
 - `assets/wallpapers/manifest.json` (gradients now, `image` field ready)
 - `assets/schedule/schedule.json` — upcoming streams (ISO datetimes)

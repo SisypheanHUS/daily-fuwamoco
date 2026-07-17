@@ -36,8 +36,8 @@ Full spec in `docs/PRD-morning-companion.md`. The short version:
 1. Streak counts **app opens** (first open of the day).
 2. Next stream comes from local `assets/schedule/schedule.json`; "TBA" when empty.
 3. v1 is local-only, no accounts, no sync. "Greeted today" is per-device.
-4. Audio is bundled; current clips are generated placeholder tones — replace with
-   real licensed recordings by dropping files + manifest entries (no code changes).
+4. Audio is bundled (mp3); grow the pool by dropping files + manifest entries
+   (no code changes).
 5. Wallpaper picked deterministically per day from a local manifest; v1 entries are
    gradients, image support already in the schema.
 
