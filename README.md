@@ -28,9 +28,15 @@ Built with Flutter, Riverpod, and go_router.
 Inspired by [FUWAMOCO](https://www.youtube.com/channel/UCt9H_RpQzhxzlyBxFqrdHqA)
 — [Fuwawa](https://hololive.hololivepro.com/en/talents/fuwawa-abyssgard/) and
 [Mococo](https://hololive.hololivepro.com/en/talents/mococo-abyssgard/)
-Abyssgard, hololive -Advent-. All mascot art in this app is original and
-abstract (see `lib/shared/widgets/companion_mascot.dart`) — this project
-doesn't use any official or fan artwork.
+Abyssgard, hololive -Advent-. All mascot art *in the app itself* is original
+and abstract (see `lib/shared/widgets/companion_mascot.dart`) — no official
+or fan artwork is bundled into the running app.
+
+### Fan art
+
+A few of my own FUWAMOCO pieces, just for fun:
+
+<img src="docs/fanart/birthday.png" height="160" alt="Fuwawa and Mococo birthday art" /> <img src="docs/fanart/wiggle-ear.gif" height="160" alt="Fuwawa ear wiggle" /> <img src="docs/fanart/smile.gif" height="160" alt="Fuwawa smiling" />
 
 ## Features
 
