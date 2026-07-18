@@ -33,6 +33,7 @@ flutter:
     - assets/schedule/schedule.json
     - assets/prompts/looking_forward_chips.json
     - assets/collection/manifest.json
+    - assets/fanart/twins-profile.jpg
 
   fonts:
     - family: Plus Jakarta Sans
