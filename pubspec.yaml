@@ -34,6 +34,7 @@ flutter:
     - assets/prompts/looking_forward_chips.json
     - assets/collection/manifest.json
     - assets/fanart/
+    - assets/pic i just add/
 
   fonts:
     - family: Plus Jakarta Sans

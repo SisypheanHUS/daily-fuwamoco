@@ -8,7 +8,11 @@ import '../data/mood_colors.dart';
 /// Evening Reflection so the interaction (and the mood palette) reads the
 /// same both times.
 class MoodPicker extends StatelessWidget {
-  const MoodPicker({super.key, required this.selected, required this.onChanged});
+  const MoodPicker({
+    super.key,
+    required this.selected,
+    required this.onChanged,
+  });
 
   final Mood? selected;
   final ValueChanged<Mood> onChanged;

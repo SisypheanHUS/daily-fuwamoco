@@ -2,6 +2,14 @@
 
 ## Screenshots
 
+<img src="docs/screenshots/glass-redesign-demo.gif" alt="Glassmorphism redesign demo — Home, Rituals, Calendar, Settings" width="280" />
+
+Full-bleed FUWAMOCO art/GIFs behind every screen, with a glassmorphism
+treatment on top (blurred backdrop, translucent white wash, bright edge,
+soft shadow) so the picture stays visible instead of getting boxed off.
+Static screenshots below are from an earlier pass and don't reflect this
+yet.
+
 <img src="docs/screenshots/greeting-demo.gif" alt="Morning greeting demo" width="280" />
 
 | | | |
@@ -28,9 +36,11 @@ Built with Flutter, Riverpod, and go_router.
 Inspired by [FUWAMOCO](https://www.youtube.com/channel/UCt9H_RpQzhxzlyBxFqrdHqA)
 — [Fuwawa](https://hololive.hololivepro.com/en/talents/fuwawa-abyssgard/) and
 [Mococo](https://hololive.hololivepro.com/en/talents/mococo-abyssgard/)
-Abyssgard, hololive -Advent-. All mascot art *in the app itself* is original
-and abstract (see `lib/shared/widgets/companion_mascot.dart`) — no official
-or fan artwork is bundled into the running app.
+Abyssgard, hololive -Advent-. The abstract twin-blob mascot
+(`lib/shared/widgets/companion_mascot.dart`) is original and is what draws
+the small in-UI icons (nav bar, empty states). The full-bleed page
+backgrounds are FUWAMOCO artwork/GIFs (`assets/fanart/`,
+`assets/pic i just add/`) — a mix of my own fan art and reference images.
 
 ### Fan art
 
@@ -56,6 +66,10 @@ A few of my own FUWAMOCO pieces, just for fun:
   live from your streak.
 - **Settings** — reduce motion, display name, greeting controls, and a
   "Reset my data" flow that returns the app to first-open state.
+- **Glassmorphism visual pass** — every screen sits on a full-bleed
+  FUWAMOCO photo/GIF; cards float on top as blurred, translucent glass
+  rather than opaque boxes. A short character-GIF pop plays on every
+  page transition (tab switch or pushed route).
 
 Everything is local-only (`shared_preferences`) — no accounts, no backend,
 works fully offline.

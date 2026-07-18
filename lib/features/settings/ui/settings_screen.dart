@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../shared/widgets/fanart_avatar.dart';
+import '../../../shared/widgets/fanart_background.dart';
+import '../../../shared/widgets/fuwa_card.dart';
 import '../../../shared/widgets/section_label.dart';
 import '../../greeting/data/greeting_context.dart';
 import '../../greeting/logic/greeting_providers.dart';
@@ -24,83 +26,104 @@ class SettingsScreen extends ConsumerWidget {
         leading: const FanArtLeading('assets/fanart/cute.jpg'),
         title: const Text('Settings'),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(Gap.md),
-        children: [
-          const SectionLabel('Preferences'),
-          const SizedBox(height: Gap.sm),
-          _DisplayNameField(
-            initialValue: settings.displayName,
-            onChanged: controller.setDisplayName,
-          ),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: const Text('Reduce motion'),
-            subtitle: const Text('Stops the twins\' idle breathing animation'),
-            value: settings.reduceMotion,
-            onChanged: controller.setReduceMotion,
-          ),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: const Text('Enable morning greeting'),
-            subtitle: const Text('Off skips the whole sequence, straight to home'),
-            value: settings.greetingEnabled,
-            onChanged: controller.setGreetingEnabled,
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            title: const Text('Greeting volume'),
-            subtitle: Slider(
-              value: settings.greetingVolume,
-              onChanged: settings.audioAllowed
-                  ? controller.setGreetingVolume
-                  : null,
-              divisions: 20,
-              label: '${(settings.greetingVolume * 100).round()}%',
+      body: FanArtBackground(
+        assetPath: 'assets/pic i just add/hehehe fuwawa smile evil.gif',
+        child: ListView(
+          padding: const EdgeInsets.all(Gap.md),
+          children: [
+            FuwaCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SectionLabel('Preferences'),
+                  const SizedBox(height: Gap.sm),
+                  _DisplayNameField(
+                    initialValue: settings.displayName,
+                    onChanged: controller.setDisplayName,
+                  ),
+                  SwitchListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Reduce motion'),
+                    subtitle: const Text(
+                      'Stops the twins\' idle breathing animation',
+                    ),
+                    value: settings.reduceMotion,
+                    onChanged: controller.setReduceMotion,
+                  ),
+                  SwitchListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Enable morning greeting'),
+                    subtitle: const Text(
+                      'Off skips the whole sequence, straight to home',
+                    ),
+                    value: settings.greetingEnabled,
+                    onChanged: controller.setGreetingEnabled,
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Greeting volume'),
+                    subtitle: Slider(
+                      value: settings.greetingVolume,
+                      onChanged: settings.audioAllowed
+                          ? controller.setGreetingVolume
+                          : null,
+                      divisions: 20,
+                      label: '${(settings.greetingVolume * 100).round()}%',
+                    ),
+                  ),
+                  SwitchListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Random greeting'),
+                    subtitle: const Text('Off always plays the first clip'),
+                    value: settings.randomGreeting,
+                    onChanged: settings.audioAllowed
+                        ? controller.setRandomGreeting
+                        : null,
+                  ),
+                  SwitchListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Mute all voice playback'),
+                    subtitle: const Text('Overrides everything else'),
+                    value: settings.muteAll,
+                    onChanged: controller.setMuteAll,
+                  ),
+                  const SizedBox(height: Gap.lg),
+                  const SectionLabel('About'),
+                  const SizedBox(height: Gap.sm),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Test greeting'),
+                    subtitle: const Text(
+                      'Plays one clip now — does not affect the daily greeting',
+                    ),
+                    trailing: FilledButton.tonal(
+                      onPressed: () => _testGreeting(context, ref),
+                      child: const Text('Play'),
+                    ),
+                  ),
+                  const ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text('Daily FUWAMOCO'),
+                    subtitle: Text('v0.1.0 · local-only, no accounts'),
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(
+                      'Reset my data',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                    subtitle: const Text(
+                      'Clears everything on this device — can\'t be undone',
+                    ),
+                    onTap: () => _confirmReset(context, ref),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: const Text('Random greeting'),
-            subtitle: const Text('Off always plays the first clip'),
-            value: settings.randomGreeting,
-            onChanged:
-                settings.audioAllowed ? controller.setRandomGreeting : null,
-          ),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: const Text('Mute all voice playback'),
-            subtitle: const Text('Overrides everything else'),
-            value: settings.muteAll,
-            onChanged: controller.setMuteAll,
-          ),
-          const SizedBox(height: Gap.lg),
-          const SectionLabel('About'),
-          const SizedBox(height: Gap.sm),
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            title: const Text('Test greeting'),
-            subtitle: const Text('Plays one clip now — does not affect the daily greeting'),
-            trailing: FilledButton.tonal(
-              onPressed: () => _testGreeting(context, ref),
-              child: const Text('Play'),
-            ),
-          ),
-          const ListTile(
-            contentPadding: EdgeInsets.zero,
-            title: Text('Daily FUWAMOCO'),
-            subtitle: Text('v0.1.0 · local-only, no accounts'),
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            title: Text(
-              'Reset my data',
-              style: TextStyle(color: Theme.of(context).colorScheme.error),
-            ),
-            subtitle: const Text('Clears everything on this device — can\'t be undone'),
-            onTap: () => _confirmReset(context, ref),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -161,7 +184,10 @@ class SettingsScreen extends ConsumerWidget {
 }
 
 class _DisplayNameField extends StatefulWidget {
-  const _DisplayNameField({required this.initialValue, required this.onChanged});
+  const _DisplayNameField({
+    required this.initialValue,
+    required this.onChanged,
+  });
 
   final String initialValue;
   final ValueChanged<String> onChanged;

@@ -25,12 +25,16 @@ class TodayEntryController extends Notifier<DailyEntry> {
     state = repo.entryFor(state.dateKey);
   }
 
-  Future<void> saveEvening({required Mood mood, required String goodThing}) async {
+  Future<void> saveEvening({
+    required Mood mood,
+    required String goodThing,
+  }) async {
     final repo = ref.read(dailyEntryRepositoryProvider);
     await repo.saveEvening(state.dateKey, mood: mood, goodThing: goodThing);
     state = repo.entryFor(state.dateKey);
   }
 }
 
-final todayEntryProvider =
-    NotifierProvider<TodayEntryController, DailyEntry>(TodayEntryController.new);
+final todayEntryProvider = NotifierProvider<TodayEntryController, DailyEntry>(
+  TodayEntryController.new,
+);

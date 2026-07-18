@@ -24,32 +24,32 @@ class Habit {
   bool isDoneOn(String dateKey) => completedDateKeys.contains(dateKey);
 
   Habit copyWith({Set<String>? completedDateKeys}) => Habit(
-        id: id,
-        title: title,
-        timeOfDay: timeOfDay,
-        colorKey: colorKey,
-        completedDateKeys: completedDateKeys ?? this.completedDateKeys,
-      );
+    id: id,
+    title: title,
+    timeOfDay: timeOfDay,
+    colorKey: colorKey,
+    completedDateKeys: completedDateKeys ?? this.completedDateKeys,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'timeOfDay': timeOfDay.name,
-        'colorKey': colorKey,
-        'completedDateKeys': completedDateKeys.toList(),
-      };
+    'id': id,
+    'title': title,
+    'timeOfDay': timeOfDay.name,
+    'colorKey': colorKey,
+    'completedDateKeys': completedDateKeys.toList(),
+  };
 
   factory Habit.fromJson(Map<String, dynamic> json) => Habit(
-        id: json['id'] as String,
-        title: json['title'] as String,
-        timeOfDay: HabitTimeOfDay.values.firstWhere(
-          (t) => t.name == json['timeOfDay'],
-          orElse: () => HabitTimeOfDay.anytime,
-        ),
-        colorKey: json['colorKey'] as String? ?? 'cream',
-        completedDateKeys:
-            ((json['completedDateKeys'] as List<dynamic>?) ?? const [])
-                .cast<String>()
-                .toSet(),
-      );
+    id: json['id'] as String,
+    title: json['title'] as String,
+    timeOfDay: HabitTimeOfDay.values.firstWhere(
+      (t) => t.name == json['timeOfDay'],
+      orElse: () => HabitTimeOfDay.anytime,
+    ),
+    colorKey: json['colorKey'] as String? ?? 'cream',
+    completedDateKeys:
+        ((json['completedDateKeys'] as List<dynamic>?) ?? const [])
+            .cast<String>()
+            .toSet(),
+  );
 }

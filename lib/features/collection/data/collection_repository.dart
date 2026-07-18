@@ -11,8 +11,9 @@ class CollectionRepository {
 
   Future<List<CollectionItem>> loadAll() async {
     try {
-      final raw = await (bundle ?? rootBundle)
-          .loadString('assets/collection/manifest.json');
+      final raw = await (bundle ?? rootBundle).loadString(
+        'assets/collection/manifest.json',
+      );
       final json = jsonDecode(raw) as Map<String, dynamic>;
       return (json['items'] as List<dynamic>).map((i) {
         final map = i as Map<String, dynamic>;

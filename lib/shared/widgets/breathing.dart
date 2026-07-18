@@ -22,7 +22,8 @@ class Breathing extends StatefulWidget {
   State<Breathing> createState() => _BreathingState();
 }
 
-class _BreathingState extends State<Breathing> with SingleTickerProviderStateMixin {
+class _BreathingState extends State<Breathing>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 2600),

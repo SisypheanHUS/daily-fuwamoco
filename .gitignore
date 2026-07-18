@@ -43,7 +43,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-# Local-only reference images (official/fan character art) — kept off the
-# public repo on purpose, see README discussion. Stays on disk, never pushed.
-/assets/pic i just add/

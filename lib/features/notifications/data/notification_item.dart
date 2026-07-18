@@ -18,22 +18,23 @@ class NotificationItem {
   final bool read;
 
   NotificationItem copyWith({bool? read}) => NotificationItem(
-        id: id,
-        avatarColorKey: avatarColorKey,
-        message: message,
-        timestamp: timestamp,
-        read: read ?? this.read,
-      );
+    id: id,
+    avatarColorKey: avatarColorKey,
+    message: message,
+    timestamp: timestamp,
+    read: read ?? this.read,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'avatarColorKey': avatarColorKey,
-        'message': message,
-        'timestamp': timestamp,
-        'read': read,
-      };
+    'id': id,
+    'avatarColorKey': avatarColorKey,
+    'message': message,
+    'timestamp': timestamp,
+    'read': read,
+  };
 
-  factory NotificationItem.fromJson(Map<String, dynamic> json) => NotificationItem(
+  factory NotificationItem.fromJson(Map<String, dynamic> json) =>
+      NotificationItem(
         id: json['id'] as String,
         avatarColorKey: json['avatarColorKey'] as String? ?? 'blue',
         message: json['message'] as String,

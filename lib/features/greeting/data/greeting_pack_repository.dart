@@ -14,8 +14,9 @@ class GreetingPackRepository {
 
   Future<GreetingPack> loadPack({String packId = 'default'}) async {
     try {
-      final raw = await (bundle ?? rootBundle)
-          .loadString('assets/audio/greetings/$packId/manifest.json');
+      final raw = await (bundle ?? rootBundle).loadString(
+        'assets/audio/greetings/$packId/manifest.json',
+      );
       return GreetingPack.fromJson(jsonDecode(raw) as Map<String, dynamic>);
     } catch (_) {
       return GreetingPack(packId: packId, packName: '', clips: const []);

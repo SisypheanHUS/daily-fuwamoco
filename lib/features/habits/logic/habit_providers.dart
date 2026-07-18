@@ -20,12 +20,14 @@ class HabitsController extends Notifier<List<Habit>> {
     required String colorKey,
   }) async {
     final repo = ref.read(habitRepositoryProvider);
-    await repo.add(Habit(
-      id: generateLocalId(),
-      title: title,
-      timeOfDay: timeOfDay,
-      colorKey: colorKey,
-    ));
+    await repo.add(
+      Habit(
+        id: generateLocalId(),
+        title: title,
+        timeOfDay: timeOfDay,
+        colorKey: colorKey,
+      ),
+    );
     state = repo.loadAll();
   }
 
@@ -42,5 +44,6 @@ class HabitsController extends Notifier<List<Habit>> {
   }
 }
 
-final habitsProvider =
-    NotifierProvider<HabitsController, List<Habit>>(HabitsController.new);
+final habitsProvider = NotifierProvider<HabitsController, List<Habit>>(
+  HabitsController.new,
+);

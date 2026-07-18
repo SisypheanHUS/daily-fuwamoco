@@ -21,7 +21,10 @@ class NotificationRepository {
       _prefs.setInt(kLastNotifiedStreak, value);
 
   List<NotificationItem> loadAll() {
-    final items = readJsonList(_prefs, _key).map(NotificationItem.fromJson).toList();
+    final items = readJsonList(
+      _prefs,
+      _key,
+    ).map(NotificationItem.fromJson).toList();
     items.sort((a, b) => b.timestamp.compareTo(a.timestamp)); // newest first
     return items;
   }

@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/local_date.dart';
 import '../../../shared/widgets/companion_mascot.dart';
+import '../../../shared/widgets/fanart_background.dart';
+import '../../../shared/widgets/glass_surface.dart';
 import '../../habits/logic/habit_providers.dart';
 import '../../settings/logic/settings_controller.dart';
 import '../../streak/logic/streak_service.dart';
@@ -17,10 +19,12 @@ class EveningReflectionScreen extends ConsumerStatefulWidget {
   const EveningReflectionScreen({super.key});
 
   @override
-  ConsumerState<EveningReflectionScreen> createState() => _EveningReflectionScreenState();
+  ConsumerState<EveningReflectionScreen> createState() =>
+      _EveningReflectionScreenState();
 }
 
-class _EveningReflectionScreenState extends ConsumerState<EveningReflectionScreen> {
+class _EveningReflectionScreenState
+    extends ConsumerState<EveningReflectionScreen> {
   final _goodThingController = TextEditingController();
   Mood _mood = Mood.calm;
 
@@ -42,30 +46,32 @@ class _EveningReflectionScreenState extends ConsumerState<EveningReflectionScree
     final reduceMotion = ref.watch(settingsProvider).reduceMotion;
     final textTheme = Theme.of(context).textTheme;
     final todayKey = localDateKey(DateTime.now());
-    final habitsDoneToday =
-        ref.watch(habitsProvider).where((h) => h.isDoneOn(todayKey)).length;
+    final habitsDoneToday = ref
+        .watch(habitsProvider)
+        .where((h) => h.isDoneOn(todayKey))
+        .length;
     final morningMood = ref.watch(todayEntryProvider).morningMood;
     final streak = ref.watch(streakProvider);
 
     return Scaffold(
-      body: DecoratedBox(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [AppTheme.blue, AppTheme.cream],
-            stops: [0.0, 0.5],
-          ),
-        ),
+      body: FanArtBackground(
+        assetPath: 'assets/fanart/twins-profile.jpg',
+        tint: AppTheme.blue.withValues(alpha: 0.55),
         child: SafeArea(
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Gap.sm, vertical: Gap.sm),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Gap.sm,
+                  vertical: Gap.sm,
+                ),
                 child: Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        size: 18,
+                      ),
                       onPressed: () => context.pop(),
                     ),
                     Expanded(
@@ -96,13 +102,20 @@ class _EveningReflectionScreenState extends ConsumerState<EveningReflectionScree
                         animate: !reduceMotion,
                       ),
                       const SizedBox(height: Gap.md),
-                      Text('Winding down together',
-                          style: textTheme.headlineSmall
-                              ?.copyWith(fontWeight: FontWeight.w800)),
+                      Text(
+                        'Winding down together',
+                        style: textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                       const SizedBox(height: Gap.xs),
-                      Text('A gentle look back at your day',
-                          style: textTheme.bodyMedium
-                              ?.copyWith(color: AppTheme.inkSoft, fontWeight: FontWeight.w600)),
+                      Text(
+                        'A gentle look back at your day',
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: AppTheme.inkSoft,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                       const SizedBox(height: Gap.lg),
                       Row(
                         children: [
@@ -115,7 +128,9 @@ class _EveningReflectionScreenState extends ConsumerState<EveningReflectionScree
                           const SizedBox(width: Gap.sm),
                           Expanded(
                             child: _RecapPill(
-                              dotColor: morningMood != null ? moodColors[morningMood] : null,
+                              dotColor: morningMood != null
+                                  ? moodColors[morningMood]
+                                  : null,
                               label: 'MOOD',
                             ),
                           ),
@@ -170,7 +185,10 @@ class _EveningReflectionScreenState extends ConsumerState<EveningReflectionScree
                       shape: const StadiumBorder(),
                     ),
                     onPressed: _submit,
-                    child: const Text('Good night', style: TextStyle(fontWeight: FontWeight.w800)),
+                    child: const Text(
+                      'Good night',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                   ),
                 ),
               ),
@@ -191,20 +209,18 @@ class _RecapPill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GlassSurface(
+      radius: 16,
       padding: const EdgeInsets.symmetric(vertical: Gap.md, horizontal: Gap.sm),
-      decoration: BoxDecoration(
-        color: AppTheme.warmWhite.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(16),
-      ),
       child: Column(
         children: [
           if (value != null)
-            Text(value!,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(fontWeight: FontWeight.w800))
+            Text(
+              value!,
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+            )
           else
             Container(
               width: 16,
@@ -215,9 +231,13 @@ class _RecapPill extends StatelessWidget {
               ),
             ),
           const SizedBox(height: 4),
-          Text(label,
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: AppTheme.inkSoft, fontWeight: FontWeight.w700)),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: AppTheme.inkSoft,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ],
       ),
     );
@@ -232,19 +252,20 @@ class _EveningField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GlassSurface(
+      radius: Corners.md,
       width: double.infinity,
       padding: const EdgeInsets.all(Gap.md),
-      decoration: BoxDecoration(
-        color: AppTheme.warmWhite.withValues(alpha: 0.7),
-        borderRadius: BorderRadius.circular(Corners.md),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: AppTheme.inkSoft, fontWeight: FontWeight.w700)),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: AppTheme.inkSoft,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           child,
         ],
       ),

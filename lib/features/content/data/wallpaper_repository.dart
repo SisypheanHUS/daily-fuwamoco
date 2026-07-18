@@ -15,12 +15,12 @@ class Wallpaper {
   final String? image;
 
   factory Wallpaper.fromJson(Map<String, dynamic> json) => Wallpaper(
-        id: json['id'] as String,
-        image: json['image'] as String?,
-        colors: (json['colors'] as List<dynamic>? ?? const [])
-            .map((hex) => _parseHex(hex as String))
-            .toList(),
-      );
+    id: json['id'] as String,
+    image: json['image'] as String?,
+    colors: (json['colors'] as List<dynamic>? ?? const [])
+        .map((hex) => _parseHex(hex as String))
+        .toList(),
+  );
 
   static Color _parseHex(String hex) =>
       Color(int.parse(hex.replaceFirst('#', '0xFF')));
@@ -35,8 +35,9 @@ class WallpaperRepository {
 
   Future<List<Wallpaper>> loadAll() async {
     try {
-      final raw = await (bundle ?? rootBundle)
-          .loadString('assets/wallpapers/manifest.json');
+      final raw = await (bundle ?? rootBundle).loadString(
+        'assets/wallpapers/manifest.json',
+      );
       final json = jsonDecode(raw) as Map<String, dynamic>;
       return (json['wallpapers'] as List<dynamic>)
           .map((w) => Wallpaper.fromJson(w as Map<String, dynamic>))
@@ -55,5 +56,7 @@ class WallpaperRepository {
 final wallpaperOfTheDayProvider = FutureProvider<Wallpaper?>((ref) async {
   final all = await const WallpaperRepository().loadAll();
   return WallpaperRepository.wallpaperOfTheDay(
-      all, localDateKey(DateTime.now()));
+    all,
+    localDateKey(DateTime.now()),
+  );
 });

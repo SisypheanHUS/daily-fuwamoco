@@ -12,7 +12,7 @@ class FanArtLeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(Gap.xs),
-        child: ClipOval(child: Image.asset(assetPath, fit: BoxFit.cover)),
-      );
+    padding: const EdgeInsets.all(Gap.xs),
+    child: ClipOval(child: Image.asset(assetPath, fit: BoxFit.cover)),
+  );
 }

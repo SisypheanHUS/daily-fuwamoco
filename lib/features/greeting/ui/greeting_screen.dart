@@ -65,9 +65,9 @@ class _GreetingScreenState extends ConsumerState<GreetingScreen>
   }
 
   Animation<double> _slice(double from, double to) => CurvedAnimation(
-        parent: _controller,
-        curve: Interval(from, to, curve: Curves.easeOut),
-      );
+    parent: _controller,
+    curve: Interval(from, to, curve: Curves.easeOut),
+  );
 
   Future<void> _playVoice() async {
     final settings = ref.read(settingsProvider);
@@ -216,10 +216,10 @@ class _FooterInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = Theme.of(context)
-        .textTheme
-        .bodyLarge
-        ?.copyWith(color: AppTheme.ink, fontWeight: FontWeight.w600);
+    final style = Theme.of(context).textTheme.bodyLarge?.copyWith(
+      color: AppTheme.ink,
+      fontWeight: FontWeight.w600,
+    );
     final nextLabel = next == null
         ? 'Next stream: TBA'
         : 'Next stream: ${next!.title} · ${DateFormat('EEE d MMM, HH:mm').format(next!.start)}';

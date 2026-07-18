@@ -5,6 +5,7 @@ import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/local_date.dart';
 import '../../../core/utils/streak_math.dart';
 import '../../../shared/widgets/fanart_avatar.dart';
+import '../../../shared/widgets/fanart_background.dart';
 import '../../../shared/widgets/fuwa_card.dart';
 import '../../../shared/widgets/section_label.dart';
 import '../../../shared/widgets/twins_mascot.dart';
@@ -35,9 +36,12 @@ class HabitTrackerScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: habits.isEmpty
-          ? _EmptyState(onAdd: () => _showAddHabitSheet(context, ref))
-          : _HabitList(habits: habits),
+      body: FanArtBackground(
+        assetPath: 'assets/pic i just add/fuwamoco stare gif.gif',
+        child: habits.isEmpty
+            ? _EmptyState(onAdd: () => _showAddHabitSheet(context, ref))
+            : _HabitList(habits: habits),
+      ),
     );
   }
 
@@ -96,11 +100,10 @@ class _HabitRow extends ConsumerWidget {
     final subtitle = streak > 0
         ? '$streak-day streak'
         : habit.completedDateKeys.isEmpty
-            ? 'Not started yet'
-            : 'Streak broken — tap to restart';
+        ? 'Not started yet'
+        : 'Streak broken — tap to restart';
 
     return FuwaCard(
-      color: Theme.of(context).colorScheme.surface,
       child: Row(
         children: [
           Container(
@@ -116,14 +119,18 @@ class _HabitRow extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(habit.title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(fontWeight: FontWeight.w700)),
-                Text(subtitle,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                Text(
+                  habit.title,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+                ),
+                Text(
+                  subtitle,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
               ],
             ),
           ),
@@ -164,26 +171,33 @@ class _EmptyState extends ConsumerWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Gap.xl),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TwinsMascot(mascotSize: 74, animate: !reduceMotion),
-            const SizedBox(height: Gap.md),
-            Text('No rituals yet',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(fontWeight: FontWeight.w800)),
-            const SizedBox(height: Gap.sm),
-            Text(
-              "Start with one small, cozy habit — the twins will remember it for you.",
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant),
-            ),
-            const SizedBox(height: Gap.lg),
-            FilledButton(onPressed: onAdd, child: const Text('Add your first ritual')),
-          ],
+        child: FuwaCard(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TwinsMascot(mascotSize: 74, animate: !reduceMotion),
+              const SizedBox(height: Gap.md),
+              Text(
+                'No rituals yet',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
+              const SizedBox(height: Gap.sm),
+              Text(
+                "Start with one small, cozy habit — the twins will remember it for you.",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: Gap.lg),
+              FilledButton(
+                onPressed: onAdd,
+                child: const Text('Add your first ritual'),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -224,16 +238,19 @@ class _AddHabitSheetState extends ConsumerState<_AddHabitSheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('New ritual',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(fontWeight: FontWeight.w800)),
+          Text(
+            'New ritual',
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+          ),
           const SizedBox(height: Gap.md),
           TextField(
             controller: _titleController,
             autofocus: true,
-            decoration: const InputDecoration(hintText: 'e.g. Stretch & breathe'),
+            decoration: const InputDecoration(
+              hintText: 'e.g. Stretch & breathe',
+            ),
             onChanged: (_) => setState(() {}),
           ),
           const SizedBox(height: Gap.md),
@@ -280,7 +297,9 @@ class _AddHabitSheetState extends ConsumerState<_AddHabitSheet> {
               onPressed: _titleController.text.trim().isEmpty
                   ? null
                   : () {
-                      ref.read(habitsProvider.notifier).add(
+                      ref
+                          .read(habitsProvider.notifier)
+                          .add(
                             title: _titleController.text.trim(),
                             timeOfDay: _timeOfDay,
                             colorKey: _colorKey,

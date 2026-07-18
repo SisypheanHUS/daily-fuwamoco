@@ -21,5 +21,4 @@ Future<void> writeJsonList(
   SharedPreferences prefs,
   String key,
   List<Map<String, dynamic>> items,
-) =>
-    prefs.setString(key, jsonEncode(items));
+) => prefs.setString(key, jsonEncode(items));

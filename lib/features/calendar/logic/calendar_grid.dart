@@ -12,7 +12,11 @@ List<DateTime> calendarGridDays(DateTime month) {
   final gridEnd = lastOfMonth.add(Duration(days: 6 - lastWeekday));
 
   return [
-    for (var d = gridStart; !d.isAfter(gridEnd); d = d.add(const Duration(days: 1)))
+    for (
+      var d = gridStart;
+      !d.isAfter(gridEnd);
+      d = d.add(const Duration(days: 1))
+    )
       d,
   ];
 }

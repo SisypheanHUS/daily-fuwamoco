@@ -10,7 +10,8 @@ final notificationRepositoryProvider = Provider<NotificationRepository>(
 
 class NotificationsController extends Notifier<List<NotificationItem>> {
   @override
-  List<NotificationItem> build() => ref.watch(notificationRepositoryProvider).loadAll();
+  List<NotificationItem> build() =>
+      ref.watch(notificationRepositoryProvider).loadAll();
 
   Future<void> markAllRead() async {
     final repo = ref.read(notificationRepositoryProvider);
@@ -27,7 +28,8 @@ class NotificationsController extends Notifier<List<NotificationItem>> {
 
 final notificationsProvider =
     NotifierProvider<NotificationsController, List<NotificationItem>>(
-        NotificationsController.new);
+      NotificationsController.new,
+    );
 
 /// Drives Home's bell badge — a single dot, never a numeric count (PRD-style
 /// rule carried over from the mockup's own design note).

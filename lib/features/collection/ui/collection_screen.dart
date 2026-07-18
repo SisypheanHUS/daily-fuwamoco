@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_theme.dart';
 import '../../../shared/widgets/companion_mascot.dart';
+import '../../../shared/widgets/fanart_background.dart';
+import '../../../shared/widgets/fuwa_card.dart';
+import '../../../shared/widgets/glass_surface.dart';
 import '../../../shared/widgets/section_label.dart';
 import '../../habits/data/habit_colors.dart';
 import '../../streak/logic/streak_service.dart';
@@ -19,13 +22,16 @@ class CollectionScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Collection')),
-      body: catalog.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, _) => const _EmptyState(),
-        data: (items) {
-          if (items.isEmpty) return const _EmptyState();
-          return _CollectionGrid(items: items, streak: streak);
-        },
+      body: FanArtBackground(
+        assetPath: 'assets/fanart/twins-profile.jpg',
+        child: catalog.when(
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (_, _) => const _EmptyState(),
+          data: (items) {
+            if (items.isEmpty) return const _EmptyState();
+            return _CollectionGrid(items: items, streak: streak);
+          },
+        ),
       ),
     );
   }
@@ -88,12 +94,10 @@ class _CollectionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return Container(
+    return GlassSurface(
+      radius: Corners.md,
       padding: const EdgeInsets.all(Gap.sm),
-      decoration: BoxDecoration(
-        color: unlocked ? AppTheme.cream : scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(Corners.md),
-      ),
+      borderColor: unlocked ? AppTheme.yellowDeep : null,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -106,7 +110,11 @@ class _CollectionTile extends StatelessWidget {
                 animate: false,
               ),
               if (!unlocked)
-                Icon(Icons.lock_rounded, size: 16, color: scheme.onSurfaceVariant),
+                Icon(
+                  Icons.lock_rounded,
+                  size: 16,
+                  color: scheme.onSurfaceVariant,
+                ),
             ],
           ),
           const SizedBox(height: Gap.xs),
@@ -116,9 +124,9 @@ class _CollectionTile extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: unlocked ? null : AppTheme.inkFaint,
-                  fontWeight: FontWeight.w600,
-                ),
+              color: unlocked ? null : AppTheme.inkFaint,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),
@@ -134,28 +142,33 @@ class _EmptyState extends StatelessWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Gap.xl),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const CompanionMascot(
-              size: 88,
-              color: AppTheme.blueDeep,
-              sleepy: true,
-              animate: false,
-            ),
-            const SizedBox(height: Gap.md),
-            Text('Nothing here yet',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(fontWeight: FontWeight.w800)),
-            const SizedBox(height: Gap.sm),
-            Text(
-              'Keep your streak going — charms will start showing up here.',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.inkSoft),
-            ),
-          ],
+        child: FuwaCard(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CompanionMascot(
+                size: 88,
+                color: AppTheme.blueDeep,
+                sleepy: true,
+                animate: false,
+              ),
+              const SizedBox(height: Gap.md),
+              Text(
+                'Nothing here yet',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
+              const SizedBox(height: Gap.sm),
+              Text(
+                'Keep your streak going — charms will start showing up here.',
+                textAlign: TextAlign.center,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: AppTheme.inkSoft),
+              ),
+            ],
+          ),
         ),
       ),
     );

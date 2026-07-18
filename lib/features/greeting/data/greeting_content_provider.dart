@@ -7,8 +7,15 @@ import 'greeting_context.dart';
 /// (seasonal, birthday, weekend, voice packs) implement this interface and
 /// join a priority chain — playback layer and state machine stay untouched.
 abstract interface class GreetingContentProvider {
-  List<AudioClip> getEligibleClips(GreetingContext context, List<AudioClip> all);
-  AudioClip? pickOne(List<AudioClip> clips, {required bool random, Random? rng});
+  List<AudioClip> getEligibleClips(
+    GreetingContext context,
+    List<AudioClip> all,
+  );
+  AudioClip? pickOne(
+    List<AudioClip> clips, {
+    required bool random,
+    Random? rng,
+  });
 }
 
 /// v1: tags must contain `generic`, uniform random. Ignores all other context.
@@ -24,7 +31,11 @@ class DefaultGreetingProvider implements GreetingContentProvider {
   }
 
   @override
-  AudioClip? pickOne(List<AudioClip> clips, {required bool random, Random? rng}) {
+  AudioClip? pickOne(
+    List<AudioClip> clips, {
+    required bool random,
+    Random? rng,
+  }) {
     if (clips.isEmpty) return null;
     if (!random) return clips.first;
     return clips[(rng ?? Random()).nextInt(clips.length)];

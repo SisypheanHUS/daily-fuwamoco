@@ -30,15 +30,14 @@ class AppSettings {
     bool? muteAll,
     bool? reduceMotion,
     String? displayName,
-  }) =>
-      AppSettings(
-        greetingEnabled: greetingEnabled ?? this.greetingEnabled,
-        greetingVolume: greetingVolume ?? this.greetingVolume,
-        randomGreeting: randomGreeting ?? this.randomGreeting,
-        muteAll: muteAll ?? this.muteAll,
-        reduceMotion: reduceMotion ?? this.reduceMotion,
-        displayName: displayName ?? this.displayName,
-      );
+  }) => AppSettings(
+    greetingEnabled: greetingEnabled ?? this.greetingEnabled,
+    greetingVolume: greetingVolume ?? this.greetingVolume,
+    randomGreeting: randomGreeting ?? this.randomGreeting,
+    muteAll: muteAll ?? this.muteAll,
+    reduceMotion: reduceMotion ?? this.reduceMotion,
+    displayName: displayName ?? this.displayName,
+  );
 }
 
 class SettingsController extends Notifier<AppSettings> {
@@ -93,5 +92,6 @@ class SettingsController extends Notifier<AppSettings> {
   }
 }
 
-final settingsProvider =
-    NotifierProvider<SettingsController, AppSettings>(SettingsController.new);
+final settingsProvider = NotifierProvider<SettingsController, AppSettings>(
+  SettingsController.new,
+);

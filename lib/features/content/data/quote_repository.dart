@@ -21,14 +21,17 @@ class QuoteRepository {
 
   Future<List<Quote>> loadAll() async {
     try {
-      final raw =
-          await (bundle ?? rootBundle).loadString('assets/quotes/quotes.json');
+      final raw = await (bundle ?? rootBundle).loadString(
+        'assets/quotes/quotes.json',
+      );
       final json = jsonDecode(raw) as Map<String, dynamic>;
       return (json['quotes'] as List<dynamic>)
-          .map((q) => Quote(
-                id: (q as Map<String, dynamic>)['id'] as String,
-                text: q['text'] as String,
-              ))
+          .map(
+            (q) => Quote(
+              id: (q as Map<String, dynamic>)['id'] as String,
+              text: q['text'] as String,
+            ),
+          )
           .toList();
     } catch (_) {
       return const [];

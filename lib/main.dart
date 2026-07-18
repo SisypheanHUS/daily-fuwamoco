@@ -57,20 +57,26 @@ Future<void> _maybeFireMilestoneNotification(SharedPreferences prefs) async {
   // notification (the charm still shows unlocked in Collection regardless)
   // rather than a duplicate one on the next boot.
   await notifRepo.setLastNotifiedStreak(currentStreak);
-  await notifRepo.add(NotificationItem(
-    id: generateLocalId(),
-    avatarColorKey: 'pink',
-    message:
-        "You just reached a $crossed-day streak — a little charm is waiting in your Collection",
-    timestamp: DateTime.now().toIso8601String(),
-  ));
+  await notifRepo.add(
+    NotificationItem(
+      id: generateLocalId(),
+      avatarColorKey: 'pink',
+      message:
+          "You just reached a $crossed-day streak — a little charm is waiting in your Collection",
+      timestamp: DateTime.now().toIso8601String(),
+    ),
+  );
 }
 
 /// Owns the [ProviderScope]'s identity so a full data reset can remount it
 /// with a fresh key — every provider underneath gets torn down and rebuilt
 /// against the now-cleared prefs, the same guarantee a real relaunch gives.
 class AppRoot extends StatefulWidget {
-  const AppRoot({super.key, required this.prefs, required this.initialLocation});
+  const AppRoot({
+    super.key,
+    required this.prefs,
+    required this.initialLocation,
+  });
 
   final SharedPreferences prefs;
   final String initialLocation;

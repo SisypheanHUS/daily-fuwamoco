@@ -4,7 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_theme.dart';
+import '../../../shared/widgets/fanart_background.dart';
 import '../../../shared/widgets/fuwa_card.dart';
+import '../../../shared/widgets/glass_surface.dart';
+import '../../../shared/widgets/section_label.dart';
 import '../../../shared/widgets/twins_mascot.dart';
 import '../../collection/logic/collection_providers.dart';
 import '../../content/data/quote_repository.dart';
@@ -61,122 +64,140 @@ class HomeScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(Gap.md),
-        children: [
-          FuwaCard(
-            child: Row(
+      body: FanArtBackground(
+        assetPath: 'assets/pic i just add/fuwamoco morning logo.jpg',
+        child: ListView(
+          padding: const EdgeInsets.all(Gap.md),
+          children: [
+            FuwaCard(
+              child: Row(
+                children: [
+                  Text('🔥', style: textTheme.headlineMedium),
+                  const SizedBox(width: Gap.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '$streak day streak',
+                          style: textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          'See you tomorrow morning!',
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: scheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(Corners.sm),
+                    child: Image.asset(
+                      'assets/fanart/smile.gif',
+                      width: 44,
+                      height: 44,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: Gap.md),
+            const SectionLabel('Today\'s rituals'),
+            const SizedBox(height: Gap.sm),
+            Row(
               children: [
-                Text('🔥', style: textTheme.headlineMedium),
-                const SizedBox(width: Gap.md),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('$streak day streak',
-                          style: textTheme.titleLarge
-                              ?.copyWith(fontWeight: FontWeight.w700)),
-                      Text('See you tomorrow morning!',
-                          style: textTheme.bodyMedium
-                              ?.copyWith(color: scheme.onSurfaceVariant)),
-                    ],
+                  child: _RitualCard(
+                    title: 'Morning\ncheck-in',
+                    subtitle: todayEntry.morningDone ? 'Done' : 'Not yet today',
+                    done: todayEntry.morningDone,
+                    onTap: () => context.push('/checkin/morning'),
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(Corners.sm),
-                  child: Image.asset(
-                    'assets/fanart/smile.gif',
-                    width: 44,
-                    height: 44,
-                    fit: BoxFit.cover,
+                const SizedBox(width: Gap.sm),
+                Expanded(
+                  child: _RitualCard(
+                    title: 'Evening\nreflection',
+                    subtitle: todayEntry.eveningDone ? 'Done' : 'Not yet today',
+                    done: todayEntry.eveningDone,
+                    onTap: () => context.push('/checkin/evening'),
                   ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: Gap.md),
-          Text('TODAY\'S RITUALS',
-              style: textTheme.labelSmall?.copyWith(
-                  color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700)),
-          const SizedBox(height: Gap.sm),
-          Row(
-            children: [
-              Expanded(
-                child: _RitualCard(
-                  title: 'Morning\ncheck-in',
-                  subtitle: todayEntry.morningDone ? 'Done' : 'Not yet today',
-                  done: todayEntry.morningDone,
-                  onTap: () => context.push('/checkin/morning'),
-                ),
-              ),
-              const SizedBox(width: Gap.sm),
-              Expanded(
-                child: _RitualCard(
-                  title: 'Evening\nreflection',
-                  subtitle: todayEntry.eveningDone ? 'Done' : 'Not yet today',
-                  done: todayEntry.eveningDone,
-                  onTap: () => context.push('/checkin/evening'),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: Gap.md),
-          FuwaCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('QUOTE OF THE DAY',
-                    style: textTheme.labelSmall
-                        ?.copyWith(color: scheme.onSurfaceVariant)),
-                const SizedBox(height: Gap.sm),
-                Text(
-                  quote?.text ?? '…',
-                  style: textTheme.titleMedium
-                      ?.copyWith(fontStyle: FontStyle.italic),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: Gap.md),
-          FuwaCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('NEXT STREAM',
-                    style: textTheme.labelSmall
-                        ?.copyWith(color: scheme.onSurfaceVariant)),
-                const SizedBox(height: Gap.sm),
-                Text(
-                  nextStream == null ? 'TBA' : nextStream.title,
-                  style: textTheme.titleMedium
-                      ?.copyWith(fontWeight: FontWeight.w600),
-                ),
-                if (nextStream != null)
+            const SizedBox(height: Gap.md),
+            FuwaCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    DateFormat('EEEE d MMMM · HH:mm').format(nextStream.start),
-                    style: textTheme.bodyMedium
-                        ?.copyWith(color: scheme.onSurfaceVariant),
+                    'QUOTE OF THE DAY',
+                    style: textTheme.labelSmall?.copyWith(
+                      color: scheme.onSurfaceVariant,
+                    ),
                   ),
-              ],
+                  const SizedBox(height: Gap.sm),
+                  Text(
+                    quote?.text ?? '…',
+                    style: textTheme.titleMedium?.copyWith(
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: Gap.md),
-          _ActionCard(
-            icon: Icons.auto_awesome_rounded,
-            label: unlockedCount.when(
-              data: (count) => 'Collection · $count unlocked',
-              loading: () => 'Collection',
-              error: (_, _) => 'Collection',
+            const SizedBox(height: Gap.md),
+            FuwaCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'NEXT STREAM',
+                    style: textTheme.labelSmall?.copyWith(
+                      color: scheme.onSurfaceVariant,
+                    ),
+                  ),
+                  const SizedBox(height: Gap.sm),
+                  Text(
+                    nextStream == null ? 'TBA' : nextStream.title,
+                    style: textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  if (nextStream != null)
+                    Text(
+                      DateFormat(
+                        'EEEE d MMMM · HH:mm',
+                      ).format(nextStream.start),
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: scheme.onSurfaceVariant,
+                      ),
+                    ),
+                ],
+              ),
             ),
-            onTap: () => context.push('/collection'),
-          ),
-          const SizedBox(height: Gap.sm),
-          _ActionCard(
-            icon: Icons.replay_rounded,
-            label: 'Replay this morning\'s greeting',
-            onTap: () => context.push('/greeting'),
-          ),
-        ],
+            const SizedBox(height: Gap.md),
+            _ActionCard(
+              icon: Icons.auto_awesome_rounded,
+              label: unlockedCount.when(
+                data: (count) => 'Collection · $count unlocked',
+                loading: () => 'Collection',
+                error: (_, _) => 'Collection',
+              ),
+              onTap: () => context.push('/collection'),
+            ),
+            const SizedBox(height: Gap.sm),
+            _ActionCard(
+              icon: Icons.replay_rounded,
+              label: 'Replay this morning\'s greeting',
+              onTap: () => context.push('/greeting'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -198,20 +219,18 @@ class _ActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return Material(
-      color: Colors.transparent,
+    return GlassSurface(
+      radius: Corners.md,
+      width: double.infinity,
+      // GlassSurface already wraps child in a transparent Material, so the
+      // InkWell's ripple paints on top of the glass fill, not under it.
       child: InkWell(
         borderRadius: BorderRadius.circular(Corners.md),
         onTap: onTap,
-        child: Container(
-          width: double.infinity,
+        child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: Gap.md,
             vertical: Gap.md,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Corners.md),
-            border: Border.all(color: scheme.outlineVariant),
           ),
           child: Row(
             children: [
@@ -220,10 +239,9 @@ class _ActionCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(fontWeight: FontWeight.w600),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
                 ),
               ),
               Icon(Icons.chevron_right_rounded, color: scheme.onSurfaceVariant),
@@ -254,9 +272,9 @@ class _RitualCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return Material(
-      color: done ? AppTheme.blue : AppTheme.cream,
-      borderRadius: BorderRadius.circular(Corners.md),
+    return GlassSurface(
+      radius: Corners.md,
+      borderColor: done ? AppTheme.blueDeep : null,
       child: InkWell(
         borderRadius: BorderRadius.circular(Corners.md),
         onTap: onTap,
@@ -270,18 +288,31 @@ class _RitualCard extends StatelessWidget {
                 height: 26,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppTheme.warmWhite,
+                  color: done ? AppTheme.blueDeep : Colors.transparent,
+                  border: Border.all(
+                    color: done ? AppTheme.blueDeep : AppTheme.creamDeep,
+                    width: 1.5,
+                  ),
                 ),
                 child: done
-                    ? const Icon(Icons.check, size: 16, color: AppTheme.blueDeep)
+                    ? const Icon(
+                        Icons.check,
+                        size: 16,
+                        color: AppTheme.warmWhite,
+                      )
                     : null,
               ),
               const SizedBox(height: Gap.sm),
-              Text(title,
-                  style:
-                      textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
-              Text(subtitle,
-                  style: textTheme.bodySmall?.copyWith(color: AppTheme.inkSoft)),
+              Text(
+                title,
+                style: textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(
+                subtitle,
+                style: textTheme.bodySmall?.copyWith(color: AppTheme.inkSoft),
+              ),
             ],
           ),
         ),

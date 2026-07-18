@@ -7,7 +7,12 @@ import 'breathing.dart';
 /// same gentle breathing loop ([Breathing]) [CompanionMascot] uses elsewhere
 /// so "Reduce motion" still has a visible effect here.
 class TwinsMascot extends StatelessWidget {
-  const TwinsMascot({super.key, this.mascotSize = 92, this.sleepy = false, this.animate = true});
+  const TwinsMascot({
+    super.key,
+    this.mascotSize = 92,
+    this.sleepy = false,
+    this.animate = true,
+  });
 
   /// Kept for API parity with [CompanionMascot] callers; a photo has no
   /// sleepy/awake variant, so this has no visual effect here.

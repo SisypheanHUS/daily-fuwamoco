@@ -35,36 +35,35 @@ class DailyEntry {
     Mood? eveningMood,
     String? eveningGoodThing,
     String? eveningCompletedAt,
-  }) =>
-      DailyEntry(
-        dateKey: dateKey,
-        morningMood: morningMood ?? this.morningMood,
-        morningNote: morningNote ?? this.morningNote,
-        morningCompletedAt: morningCompletedAt ?? this.morningCompletedAt,
-        eveningMood: eveningMood ?? this.eveningMood,
-        eveningGoodThing: eveningGoodThing ?? this.eveningGoodThing,
-        eveningCompletedAt: eveningCompletedAt ?? this.eveningCompletedAt,
-      );
+  }) => DailyEntry(
+    dateKey: dateKey,
+    morningMood: morningMood ?? this.morningMood,
+    morningNote: morningNote ?? this.morningNote,
+    morningCompletedAt: morningCompletedAt ?? this.morningCompletedAt,
+    eveningMood: eveningMood ?? this.eveningMood,
+    eveningGoodThing: eveningGoodThing ?? this.eveningGoodThing,
+    eveningCompletedAt: eveningCompletedAt ?? this.eveningCompletedAt,
+  );
 
   Map<String, dynamic> toJson() => {
-        'dateKey': dateKey,
-        'morningMood': morningMood?.name,
-        'morningNote': morningNote,
-        'morningCompletedAt': morningCompletedAt,
-        'eveningMood': eveningMood?.name,
-        'eveningGoodThing': eveningGoodThing,
-        'eveningCompletedAt': eveningCompletedAt,
-      };
+    'dateKey': dateKey,
+    'morningMood': morningMood?.name,
+    'morningNote': morningNote,
+    'morningCompletedAt': morningCompletedAt,
+    'eveningMood': eveningMood?.name,
+    'eveningGoodThing': eveningGoodThing,
+    'eveningCompletedAt': eveningCompletedAt,
+  };
 
   factory DailyEntry.fromJson(Map<String, dynamic> json) => DailyEntry(
-        dateKey: json['dateKey'] as String,
-        morningMood: _moodFromName(json['morningMood'] as String?),
-        morningNote: json['morningNote'] as String?,
-        morningCompletedAt: json['morningCompletedAt'] as String?,
-        eveningMood: _moodFromName(json['eveningMood'] as String?),
-        eveningGoodThing: json['eveningGoodThing'] as String?,
-        eveningCompletedAt: json['eveningCompletedAt'] as String?,
-      );
+    dateKey: json['dateKey'] as String,
+    morningMood: _moodFromName(json['morningMood'] as String?),
+    morningNote: json['morningNote'] as String?,
+    morningCompletedAt: json['morningCompletedAt'] as String?,
+    eveningMood: _moodFromName(json['eveningMood'] as String?),
+    eveningGoodThing: json['eveningGoodThing'] as String?,
+    eveningCompletedAt: json['eveningCompletedAt'] as String?,
+  );
 
   static Mood? _moodFromName(String? name) {
     if (name == null) return null;

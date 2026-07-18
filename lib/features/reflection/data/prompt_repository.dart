@@ -13,8 +13,9 @@ class PromptRepository {
 
   Future<List<String>> loadingForwardChips() async {
     try {
-      final raw = await (bundle ?? rootBundle)
-          .loadString('assets/prompts/looking_forward_chips.json');
+      final raw = await (bundle ?? rootBundle).loadString(
+        'assets/prompts/looking_forward_chips.json',
+      );
       final json = jsonDecode(raw) as Map<String, dynamic>;
       return (json['chips'] as List<dynamic>).cast<String>();
     } catch (_) {

@@ -12,6 +12,7 @@ import 'features/reflection/ui/evening_reflection_screen.dart';
 import 'features/reflection/ui/morning_checkin_screen.dart';
 import 'features/settings/ui/settings_screen.dart';
 import 'shared/widgets/app_shell.dart';
+import 'shared/widgets/page_transition_effect.dart';
 
 class DailyRuffianApp extends StatefulWidget {
   const DailyRuffianApp({super.key, required this.initialLocation});
@@ -27,6 +28,7 @@ class _DailyRuffianAppState extends State<DailyRuffianApp> {
   // current screen and reset navigation + animation state.
   late final GoRouter _router = GoRouter(
     initialLocation: widget.initialLocation,
+    observers: [PageTransitionObserver()],
     routes: [
       GoRoute(path: '/greeting', builder: (_, _) => const GreetingScreen()),
       GoRoute(
@@ -37,26 +39,42 @@ class _DailyRuffianAppState extends State<DailyRuffianApp> {
         path: '/checkin/evening',
         builder: (_, _) => const EveningReflectionScreen(),
       ),
-      GoRoute(path: '/notifications', builder: (_, _) => const NotificationsScreen()),
+      GoRoute(
+        path: '/notifications',
+        builder: (_, _) => const NotificationsScreen(),
+      ),
       GoRoute(path: '/collection', builder: (_, _) => const CollectionScreen()),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => AppShell(navigationShell: shell),
         branches: [
           StatefulShellBranch(
-            routes: [GoRoute(path: '/home', builder: (_, _) => const HomeScreen())],
-          ),
-          StatefulShellBranch(
             routes: [
-              GoRoute(path: '/habits', builder: (_, _) => const HabitTrackerScreen()),
+              GoRoute(path: '/home', builder: (_, _) => const HomeScreen()),
             ],
           ),
           StatefulShellBranch(
             routes: [
-              GoRoute(path: '/calendar', builder: (_, _) => const CalendarScreen()),
+              GoRoute(
+                path: '/habits',
+                builder: (_, _) => const HabitTrackerScreen(),
+              ),
             ],
           ),
           StatefulShellBranch(
-            routes: [GoRoute(path: '/settings', builder: (_, _) => const SettingsScreen())],
+            routes: [
+              GoRoute(
+                path: '/calendar',
+                builder: (_, _) => const CalendarScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/settings',
+                builder: (_, _) => const SettingsScreen(),
+              ),
+            ],
           ),
         ],
       ),
@@ -75,6 +93,8 @@ class _DailyRuffianAppState extends State<DailyRuffianApp> {
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       routerConfig: _router,
+      builder: (context, child) =>
+          PageTransitionEffect(child: child ?? const SizedBox()),
     );
   }
 }
