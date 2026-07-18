@@ -1,6 +1,10 @@
 # Daily FUWAMOCO
 
+![Banner](docs/screenshots/banner.png)
+
 ## Screenshots
+
+<img src="docs/screenshots/greeting-demo.gif" alt="Morning greeting demo" width="280" />
 
 | | | |
 |---|---|---|
@@ -22,6 +26,13 @@ design can make software feel like a quiet companion rather than another
 thing demanding your attention.
 
 Built with Flutter, Riverpod, and go_router.
+
+Inspired by [FUWAMOCO](https://www.youtube.com/channel/UCt9H_RpQzhxzlyBxFqrdHqA)
+— [Fuwawa](https://hololive.hololivepro.com/en/talents/fuwawa-abyssgard/) and
+[Mococo](https://hololive.hololivepro.com/en/talents/mococo-abyssgard/)
+Abyssgard, hololive -Advent-. All mascot art in this app is original and
+abstract (see `lib/shared/widgets/companion_mascot.dart`) — this project
+doesn't use any official or fan artwork.
 
 ## Features
 
