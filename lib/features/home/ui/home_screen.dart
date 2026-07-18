@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_theme.dart';
+import '../../../shared/widgets/fuwa_card.dart';
 import '../../../shared/widgets/twins_mascot.dart';
 import '../../content/data/quote_repository.dart';
 import '../../schedule/data/schedule_repository.dart';
@@ -29,17 +30,11 @@ class HomeScreen extends ConsumerWidget {
           child: TwinsMascot(mascotSize: 20, animate: !reduceMotion),
         ),
         title: const Text('Daily FUWAMOCO'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings_outlined),
-            onPressed: () => context.push('/settings'),
-          ),
-        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(Gap.md),
         children: [
-          _Card(
+          FuwaCard(
             child: Row(
               children: [
                 Text('🔥', style: textTheme.headlineMedium),
@@ -59,7 +54,7 @@ class HomeScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: Gap.md),
-          _Card(
+          FuwaCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -76,7 +71,7 @@ class HomeScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: Gap.md),
-          _Card(
+          FuwaCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -110,27 +105,8 @@ class HomeScreen extends ConsumerWidget {
   }
 }
 
-class _Card extends StatelessWidget {
-  const _Card({required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(Gap.md),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(Corners.md),
-      ),
-      child: child,
-    );
-  }
-}
-
-/// A tappable card for secondary actions — visually lighter than [_Card] so
-/// content reads first and actions read second.
+/// A tappable card for secondary actions — visually lighter than [FuwaCard]
+/// so content reads first and actions read second.
 class _ActionCard extends StatelessWidget {
   const _ActionCard({
     required this.icon,

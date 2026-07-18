@@ -22,14 +22,15 @@ abstract final class AppTheme {
 
   static const accent = pinkDeep;
 
-  static ThemeData get light => _base(Brightness.light);
-  static ThemeData get dark => _base(Brightness.dark);
+  // Light-only by design (see class doc) — app.dart pins ThemeMode.light so
+  // this is the only theme ever shown, regardless of system brightness.
+  static ThemeData get light => _base();
 
-  static ThemeData _base(Brightness brightness) {
+  static ThemeData _base() {
     final scheme = ColorScheme.fromSeed(
       seedColor: accent,
-      brightness: brightness,
-      surface: brightness == Brightness.dark ? ink : warmWhite,
+      brightness: Brightness.light,
+      surface: warmWhite,
     );
     final base = ThemeData(
       colorScheme: scheme,

@@ -53,3 +53,28 @@ browser and can take 30s+; later reloads boot in ~4-7s.
   Any screen that shows it (greeting, home) will hang `tester.pumpAndSettle()`
   forever, since there's always a pending frame. Use bounded `tester.pump(duration)`
   calls in widget tests instead — see `test/widget_test.dart`.
+- The app pins `themeMode: ThemeMode.light` (see `app.dart`) — the brief is
+  light/cream-only, "avoid dark UI". If the browser/OS is in dark mode and this
+  ever regresses (MaterialApp defaults to `ThemeMode.system`), the whole app
+  silently falls back to a dark near-black palette that directly contradicts
+  the design. Worth a visual spot-check after any `app.dart` change.
+- Small tap targets (e.g. the 28px habit toggle ring) are easy to miss by a
+  few px when eyeballing coordinates from a screenshot — a missed click looks
+  identical to a broken handler (nothing visibly changes). Don't conclude
+  "bug" from one miss: `zoom` into the target region first to get an accurate
+  center, and confirm state changes via
+  `localStorage.getItem('flutter.<key>')` (SharedPreferences on web), not
+  just by eye.
+- `showModalBottomSheet` content wrapped in `SingleChildScrollView` lays out
+  fully — `find`/`tap` on an off-viewport child reports its real (unscrolled)
+  position, which reads as "hit test failed, might be off-screen" the same
+  way a genuine layout bug would. In widget tests, drive it into view first
+  (`tester.dragUntilVisible(target, find.byType(SingleChildScrollView), ...)`)
+  rather than assuming overflow. In practice this mostly matters for very
+  short surfaces (real phones are usually tall enough that everything fits
+  without scrolling).
+- After any `app.dart`/routing change, do a full `flutter run` restart before
+  verifying rather than relying on the already-running process — this repo's
+  sessions have consistently restarted rather than hot-reloaded, so hot
+  reload's behavior for router/shell changes specifically hasn't actually
+  been tested here.
