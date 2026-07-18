@@ -86,6 +86,13 @@ browser and can take 30s+; later reloads boot in ~4-7s.
   open a **fresh tab** first (`tabs_create_mcp`), or unregister the service
   worker via `navigator.serviceWorker.getRegistrations().then(rs =>
   rs.map(r => r.unregister()))` and reload with a cache-busting query param.
+- `shared_preferences` on web stores every value (including `String`s) as
+  JSON in `localStorage` — a plain string needs its own quotes:
+  `localStorage.setItem('flutter.streak_last_open_date',
+  JSON.stringify('2026-07-17'))`, not the bare date string. Setting it
+  unquoted doesn't error; `getString()` just fails to parse it and silently
+  falls back to `null`, which reads as "the value didn't take" rather than
+  "the write was malformed" — cost a full extra round-trip to notice.
 - Injecting data into `localStorage` via `javascript_tool` on an
   **already-running** tab does not retroactively update Riverpod state —
   providers read prefs once at construction, not on every localStorage
