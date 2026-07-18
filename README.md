@@ -2,21 +2,11 @@
 
 ## Screenshots
 
-<img src="docs/screenshots/glass-redesign-demo.gif" alt="Glassmorphism redesign demo — Home, Rituals, Calendar, Settings" width="280" />
+<img src="docs/screenshots/glass-redesign-demo.gif" alt="Demo — morning greeting, then Home, Rituals, Calendar, Settings" width="280" />
 
 Full-bleed FUWAMOCO art/GIFs behind every screen, with a glassmorphism
 treatment on top (blurred backdrop, translucent white wash, bright edge,
 soft shadow) so the picture stays visible instead of getting boxed off.
-Static screenshots below are from an earlier pass and don't reflect this
-yet.
-
-<img src="docs/screenshots/greeting-demo.gif" alt="Morning greeting demo" width="280" />
-
-| | | |
-|---|---|---|
-| ![Home](docs/screenshots/home.png) Home | ![Morning check-in](docs/screenshots/morning-checkin.png) Morning check-in | ![Evening reflection](docs/screenshots/evening-reflection.png) Evening reflection |
-| ![Rituals](docs/screenshots/rituals.png) Rituals (habits) | ![Calendar](docs/screenshots/calendar.png) Calendar | ![Notifications](docs/screenshots/notifications.png) Notifications |
-| ![Collection](docs/screenshots/collection.png) Collection | ![Settings](docs/screenshots/settings.png) Settings | |
 
 Daily FUWAMOCO is a cozy companion app inspired by FUWAMOCO and, especially,
 Mococo's heartfelt pep talks that somehow always arrive at the right time.
