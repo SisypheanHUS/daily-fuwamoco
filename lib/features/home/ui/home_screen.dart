@@ -69,16 +69,27 @@ class HomeScreen extends ConsumerWidget {
               children: [
                 Text('🔥', style: textTheme.headlineMedium),
                 const SizedBox(width: Gap.md),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('$streak day streak',
-                        style: textTheme.titleLarge
-                            ?.copyWith(fontWeight: FontWeight.w700)),
-                    Text('See you tomorrow morning!',
-                        style: textTheme.bodyMedium
-                            ?.copyWith(color: scheme.onSurfaceVariant)),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('$streak day streak',
+                          style: textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.w700)),
+                      Text('See you tomorrow morning!',
+                          style: textTheme.bodyMedium
+                              ?.copyWith(color: scheme.onSurfaceVariant)),
+                    ],
+                  ),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(Corners.sm),
+                  child: Image.asset(
+                    'assets/fanart/smile.gif',
+                    width: 44,
+                    height: 44,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ],
             ),

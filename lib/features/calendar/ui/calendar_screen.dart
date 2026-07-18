@@ -126,10 +126,26 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 ),
                 const SizedBox(height: Gap.sm),
                 if (habitsOnSelectedDay.isEmpty)
-                  Text(
-                    'No rituals completed this day.',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(Corners.sm),
+                        child: Image.asset(
+                          'assets/fanart/birthday.png',
+                          width: 32,
+                          height: 32,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(width: Gap.sm),
+                      Expanded(
+                        child: Text(
+                          'No rituals completed this day.',
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant),
+                        ),
+                      ),
+                    ],
                   )
                 else
                   for (final habit in habitsOnSelectedDay)

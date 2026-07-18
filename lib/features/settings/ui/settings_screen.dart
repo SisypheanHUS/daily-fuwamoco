@@ -19,7 +19,15 @@ class SettingsScreen extends ConsumerWidget {
     final controller = ref.read(settingsProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(Gap.xs),
+          child: ClipOval(
+            child: Image.asset('assets/fanart/cute.jpg', fit: BoxFit.cover),
+          ),
+        ),
+        title: const Text('Settings'),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(Gap.md),
         children: [

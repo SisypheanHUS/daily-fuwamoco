@@ -23,6 +23,12 @@ class HabitTrackerScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(Gap.xs),
+          child: ClipOval(
+            child: Image.asset('assets/fanart/wiggle-ear.gif', fit: BoxFit.cover),
+          ),
+        ),
         title: const Text('Rituals'),
         actions: [
           IconButton(
