@@ -93,6 +93,16 @@ browser and can take 30s+; later reloads boot in ~4-7s.
   visibly changes) but isn't a reactivity bug — it's a test-methodology
   mismatch. Drive state changes through the actual UI (or a fresh page load
   that re-runs `main()`) instead of poking storage mid-session.
+- Flutter's debug-mode "DEBUG" corner ribbon (`debugShowCheckedModeBanner`,
+  on by default) paints on top of everything, including `AppBar` actions
+  placed near the right edge — it can fully hide (and eat clicks meant for)
+  a right-aligned `IconButton`, with zero console errors, looking exactly
+  like a genuine "widget never rendered" bug. If a right-edge action seems
+  to render as literally nothing, don't assume the code is wrong before
+  checking this — `app.dart` now sets `debugShowCheckedModeBanner: false`
+  precisely because this cost a long debugging session (spawned a full
+  server-restart / fresh-tab / accessibility-tree / colored-marker-widget
+  investigation before the ribbon turned out to be the whole story).
 - Manual mouse click-drag in Chrome does not reliably scroll a Flutter-web
   `ListView` the way a real touchscreen or a `flutter test`
   `WidgetTester.drag`/`dragUntilVisible` does — content below the fold can

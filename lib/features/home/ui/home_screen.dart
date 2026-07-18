@@ -7,6 +7,7 @@ import '../../../core/theme/app_theme.dart';
 import '../../../shared/widgets/fuwa_card.dart';
 import '../../../shared/widgets/twins_mascot.dart';
 import '../../content/data/quote_repository.dart';
+import '../../notifications/logic/notification_providers.dart';
 import '../../reflection/logic/reflection_providers.dart';
 import '../../schedule/data/schedule_repository.dart';
 import '../../settings/logic/settings_controller.dart';
@@ -22,6 +23,7 @@ class HomeScreen extends ConsumerWidget {
     final nextStream = ref.watch(nextStreamProvider).value;
     final reduceMotion = ref.watch(settingsProvider).reduceMotion;
     final todayEntry = ref.watch(todayEntryProvider);
+    final hasUnread = ref.watch(hasUnreadNotificationsProvider);
     final textTheme = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
 
@@ -32,6 +34,30 @@ class HomeScreen extends ConsumerWidget {
           child: TwinsMascot(mascotSize: 20, animate: !reduceMotion),
         ),
         title: const Text('Daily FUWAMOCO'),
+        actions: [
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.notifications_none_rounded),
+                onPressed: () => context.push('/notifications'),
+              ),
+              if (hasUnread)
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Container(
+                    width: 8,
+                    height: 8,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppTheme.pinkDeep,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(Gap.md),

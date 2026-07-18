@@ -6,6 +6,7 @@ import 'features/calendar/ui/calendar_screen.dart';
 import 'features/greeting/ui/greeting_screen.dart';
 import 'features/habits/ui/habit_tracker_screen.dart';
 import 'features/home/ui/home_screen.dart';
+import 'features/notifications/ui/notifications_screen.dart';
 import 'features/reflection/ui/evening_reflection_screen.dart';
 import 'features/reflection/ui/morning_checkin_screen.dart';
 import 'features/settings/ui/settings_screen.dart';
@@ -35,6 +36,7 @@ class _DailyRuffianAppState extends State<DailyRuffianApp> {
         path: '/checkin/evening',
         builder: (_, _) => const EveningReflectionScreen(),
       ),
+      GoRoute(path: '/notifications', builder: (_, _) => const NotificationsScreen()),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => AppShell(navigationShell: shell),
         branches: [
@@ -69,6 +71,7 @@ class _DailyRuffianAppState extends State<DailyRuffianApp> {
       // falls back to the old near-black palette on any device set to dark
       // mode, which is exactly what this redesign moved away from.
       themeMode: ThemeMode.light,
+      debugShowCheckedModeBanner: false,
       routerConfig: _router,
     );
   }
