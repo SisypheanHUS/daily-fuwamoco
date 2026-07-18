@@ -1,18 +1,36 @@
 # Daily Ruffian
 
-A FUWAMOCO-fan morning companion app. Opening the app in the morning should feel
-like being greeted by a warm little companion, not launching a utility.
+A FUWAMOCO-fan cozy companion app ("Daily FUWAMOCO"), branded around a warm
+little twin-mascot pair. Opening the app should feel like checking in with a
+companion, not launching a utility or a gamified habit tracker.
 
 ## Stack
 
-- Flutter, Riverpod, go_router
-- Storage: shared_preferences (flags + settings only)
+- Flutter, Riverpod, go_router (`StatefulShellRoute.indexedStack` for the
+  4-tab bottom nav: Home / Rituals / Calendar / Settings)
+- Storage: shared_preferences — flat keys for flags/settings, plus
+  `lib/core/storage/json_list_store.dart` (JSON-encoded lists) for mutable
+  structured data: habits, notifications, daily check-in entries
 - Audio: just_audio, local assets driven by `assets/audio/greetings/<pack>/manifest.json`
+- Manifest-driven content throughout: bundled JSON assets loaded via
+  `rootBundle`, never hardcoded strings (quotes, wallpapers, schedule,
+  reflection prompts, collection catalog)
 
 ## Design
 
-- Minimal, monochrome, cute. One accent color.
+- Warm cream/clay/pastel palette (`AppTheme`), Plus Jakarta Sans, 20–32px
+  rounded corners, soft shadows. Light-only by design — `app.dart` pins
+  `themeMode: ThemeMode.light`; avoid dark UI.
 - Follow `E:\Dev\skills\design.md` and `E:\Dev\skills\flutter.md`.
+
+## Features (v2)
+
+Home, Habit Tracker ("Rituals"), Calendar, Morning Check-in / Evening
+Reflection, Notifications (in-app inbox only — no OS push, see
+`docs/PRD-daily-fuwamoco-v2.md`), Collection (charm catalog, Milestones
+group unlocks live from streak), Settings (Preferences/About sections,
+"Reset my data" clears local state — no accounts, no sync). Full v2 scope
+and deferred items: `docs/PRD-daily-fuwamoco-v2.md`.
 
 ## Core feature: Morning Companion
 
