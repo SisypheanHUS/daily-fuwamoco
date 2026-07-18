@@ -93,6 +93,16 @@ browser and can take 30s+; later reloads boot in ~4-7s.
   visibly changes) but isn't a reactivity bug — it's a test-methodology
   mismatch. Drive state changes through the actual UI (or a fresh page load
   that re-runs `main()`) instead of poking storage mid-session.
+- `resize_window` on the Chrome tool does not actually change this
+  environment's viewport (`window.innerWidth` stays ~1854 regardless of the
+  requested size) — there's no way to get a true mobile-width screenshot
+  here. `GridView`/`childAspectRatio` layouts (e.g. Collection) look
+  visually stretched/distorted at that fixed desktop width because each
+  column gets ~600px instead of a phone's ~120px; do the aspect-ratio math
+  by hand (padding/columns/gaps against a real phone width like 390) rather
+  than concluding "broken layout" from how it looks in a screenshot here.
+  Plain full-width `Column`/`ListView` screens don't show this because they
+  have no aspect-ratio constraint to distort.
 - Flutter's debug-mode "DEBUG" corner ribbon (`debugShowCheckedModeBanner`,
   on by default) paints on top of everything, including `AppBar` actions
   placed near the right edge — it can fully hide (and eat clicks meant for)

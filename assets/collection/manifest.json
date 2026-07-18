@@ -1,0 +1,67 @@
+{
+  "items": [
+    {
+      "id": "milestone_7",
+      "name": "First Spark",
+      "group": "milestones",
+      "colorKey": "yellow",
+      "threshold": 7
+    },
+    {
+      "id": "milestone_30",
+      "name": "Steady Glow",
+      "group": "milestones",
+      "colorKey": "pink",
+      "threshold": 30
+    },
+    {
+      "id": "milestone_100",
+      "name": "Radiant Flame",
+      "group": "milestones",
+      "colorKey": "blueDeep",
+      "threshold": 100
+    },
+    {
+      "id": "seasonal_spring",
+      "name": "Spring Bloom",
+      "group": "seasonal",
+      "colorKey": "pink"
+    },
+    {
+      "id": "seasonal_summer",
+      "name": "Summer Splash",
+      "group": "seasonal",
+      "colorKey": "blue"
+    },
+    {
+      "id": "seasonal_autumn",
+      "name": "Autumn Leaf",
+      "group": "seasonal",
+      "colorKey": "yellow"
+    },
+    {
+      "id": "seasonal_winter",
+      "name": "Winter Frost",
+      "group": "seasonal",
+      "colorKey": "blueDeep"
+    },
+    {
+      "id": "everyday_coffee",
+      "name": "Coffee Break",
+      "group": "everyday",
+      "colorKey": "cream"
+    },
+    {
+      "id": "everyday_rainy",
+      "name": "Rainy Day",
+      "group": "everyday",
+      "colorKey": "blue"
+    },
+    {
+      "id": "everyday_book",
+      "name": "Bookworm",
+      "group": "everyday",
+      "colorKey": "yellow"
+    }
+  ]
+}

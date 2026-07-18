@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'core/theme/app_theme.dart';
 import 'features/calendar/ui/calendar_screen.dart';
+import 'features/collection/ui/collection_screen.dart';
 import 'features/greeting/ui/greeting_screen.dart';
 import 'features/habits/ui/habit_tracker_screen.dart';
 import 'features/home/ui/home_screen.dart';
@@ -37,6 +38,7 @@ class _DailyRuffianAppState extends State<DailyRuffianApp> {
         builder: (_, _) => const EveningReflectionScreen(),
       ),
       GoRoute(path: '/notifications', builder: (_, _) => const NotificationsScreen()),
+      GoRoute(path: '/collection', builder: (_, _) => const CollectionScreen()),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => AppShell(navigationShell: shell),
         branches: [

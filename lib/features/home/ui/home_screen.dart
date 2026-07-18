@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../shared/widgets/fuwa_card.dart';
 import '../../../shared/widgets/twins_mascot.dart';
+import '../../collection/logic/collection_providers.dart';
 import '../../content/data/quote_repository.dart';
 import '../../notifications/logic/notification_providers.dart';
 import '../../reflection/logic/reflection_providers.dart';
@@ -24,6 +25,7 @@ class HomeScreen extends ConsumerWidget {
     final reduceMotion = ref.watch(settingsProvider).reduceMotion;
     final todayEntry = ref.watch(todayEntryProvider);
     final hasUnread = ref.watch(hasUnreadNotificationsProvider);
+    final unlockedCount = ref.watch(unlockedCollectionCountProvider);
     final textTheme = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
 
@@ -148,6 +150,16 @@ class HomeScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: Gap.md),
+          _ActionCard(
+            icon: Icons.auto_awesome_rounded,
+            label: unlockedCount.when(
+              data: (count) => 'Collection · $count unlocked',
+              loading: () => 'Collection',
+              error: (_, _) => 'Collection',
+            ),
+            onTap: () => context.push('/collection'),
+          ),
+          const SizedBox(height: Gap.sm),
           _ActionCard(
             icon: Icons.replay_rounded,
             label: 'Replay this morning\'s greeting',
