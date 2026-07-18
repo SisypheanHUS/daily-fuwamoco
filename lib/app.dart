@@ -6,6 +6,8 @@ import 'features/calendar/ui/calendar_screen.dart';
 import 'features/greeting/ui/greeting_screen.dart';
 import 'features/habits/ui/habit_tracker_screen.dart';
 import 'features/home/ui/home_screen.dart';
+import 'features/reflection/ui/evening_reflection_screen.dart';
+import 'features/reflection/ui/morning_checkin_screen.dart';
 import 'features/settings/ui/settings_screen.dart';
 import 'shared/widgets/app_shell.dart';
 
@@ -25,6 +27,14 @@ class _DailyRuffianAppState extends State<DailyRuffianApp> {
     initialLocation: widget.initialLocation,
     routes: [
       GoRoute(path: '/greeting', builder: (_, _) => const GreetingScreen()),
+      GoRoute(
+        path: '/checkin/morning',
+        builder: (_, _) => const MorningCheckinScreen(),
+      ),
+      GoRoute(
+        path: '/checkin/evening',
+        builder: (_, _) => const EveningReflectionScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => AppShell(navigationShell: shell),
         branches: [

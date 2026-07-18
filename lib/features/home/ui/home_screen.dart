@@ -7,6 +7,7 @@ import '../../../core/theme/app_theme.dart';
 import '../../../shared/widgets/fuwa_card.dart';
 import '../../../shared/widgets/twins_mascot.dart';
 import '../../content/data/quote_repository.dart';
+import '../../reflection/logic/reflection_providers.dart';
 import '../../schedule/data/schedule_repository.dart';
 import '../../settings/logic/settings_controller.dart';
 import '../../streak/logic/streak_service.dart';
@@ -20,6 +21,7 @@ class HomeScreen extends ConsumerWidget {
     final quote = ref.watch(quoteOfTheDayProvider).value;
     final nextStream = ref.watch(nextStreamProvider).value;
     final reduceMotion = ref.watch(settingsProvider).reduceMotion;
+    final todayEntry = ref.watch(todayEntryProvider);
     final textTheme = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
 
@@ -52,6 +54,32 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ],
             ),
+          ),
+          const SizedBox(height: Gap.md),
+          Text('TODAY\'S RITUALS',
+              style: textTheme.labelSmall?.copyWith(
+                  color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700)),
+          const SizedBox(height: Gap.sm),
+          Row(
+            children: [
+              Expanded(
+                child: _RitualCard(
+                  title: 'Morning\ncheck-in',
+                  subtitle: todayEntry.morningDone ? 'Done' : 'Not yet today',
+                  done: todayEntry.morningDone,
+                  onTap: () => context.push('/checkin/morning'),
+                ),
+              ),
+              const SizedBox(width: Gap.sm),
+              Expanded(
+                child: _RitualCard(
+                  title: 'Evening\nreflection',
+                  subtitle: todayEntry.eveningDone ? 'Done' : 'Not yet today',
+                  done: todayEntry.eveningDone,
+                  onTap: () => context.push('/checkin/evening'),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: Gap.md),
           FuwaCard(
@@ -150,6 +178,61 @@ class _ActionCard extends StatelessWidget {
                 ),
               ),
               Icon(Icons.chevron_right_rounded, color: scheme.onSurfaceVariant),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// One of the two fixed daily rituals on Home — distinct from the
+/// user-defined habits in the Rituals tab. Tapping either opens its flow;
+/// the done/not-yet state comes straight from [todayEntryProvider].
+class _RitualCard extends StatelessWidget {
+  const _RitualCard({
+    required this.title,
+    required this.subtitle,
+    required this.done,
+    required this.onTap,
+  });
+
+  final String title;
+  final String subtitle;
+  final bool done;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Material(
+      color: done ? AppTheme.blue : AppTheme.cream,
+      borderRadius: BorderRadius.circular(Corners.md),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(Corners.md),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(Gap.md),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 26,
+                height: 26,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppTheme.warmWhite,
+                ),
+                child: done
+                    ? const Icon(Icons.check, size: 16, color: AppTheme.blueDeep)
+                    : null,
+              ),
+              const SizedBox(height: Gap.sm),
+              Text(title,
+                  style:
+                      textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+              Text(subtitle,
+                  style: textTheme.bodySmall?.copyWith(color: AppTheme.inkSoft)),
             ],
           ),
         ),
