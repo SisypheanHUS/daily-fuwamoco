@@ -16,16 +16,17 @@ import 'features/streak/logic/streak_service.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
-  final initialLocation = await _bootstrap(prefs);
+  final initialLocation = await bootstrapApp(prefs);
   runApp(AppRoot(prefs: prefs, initialLocation: initialLocation));
 }
 
 /// The once-per-open boot sequence: records the app open, fires a milestone
 /// notification if a streak threshold was just crossed, then decides where
-/// to land. Extracted so [AppRoot]'s "Reset my data" flow can re-run exactly
-/// this after clearing prefs, producing real fresh-install state instead of
-/// a hand-maintained list of providers to invalidate.
-Future<String> _bootstrap(SharedPreferences prefs) async {
+/// to land. Extracted (and kept public + `@visibleForTesting`) so both
+/// [AppRoot]'s "Reset my data" flow and tests can drive it directly instead
+/// of only ever running inside `main()`.
+@visibleForTesting
+Future<String> bootstrapApp(SharedPreferences prefs) async {
   final todayKey = localDateKey(DateTime.now());
   StreakService(prefs).recordAppOpen(todayKey);
 
@@ -51,6 +52,11 @@ Future<void> _maybeFireMilestoneNotification(SharedPreferences prefs) async {
   );
   if (crossed == null) return;
 
+  // Mark the threshold notified before adding the item: if the process
+  // dies between these two writes, the worst case is a silently missed
+  // notification (the charm still shows unlocked in Collection regardless)
+  // rather than a duplicate one on the next boot.
+  await notifRepo.setLastNotifiedStreak(currentStreak);
   await notifRepo.add(NotificationItem(
     id: generateLocalId(),
     avatarColorKey: 'pink',
@@ -58,7 +64,6 @@ Future<void> _maybeFireMilestoneNotification(SharedPreferences prefs) async {
         "You just reached a $crossed-day streak — a little charm is waiting in your Collection",
     timestamp: DateTime.now().toIso8601String(),
   ));
-  await notifRepo.setLastNotifiedStreak(currentStreak);
 }
 
 /// Owns the [ProviderScope]'s identity so a full data reset can remount it
@@ -80,7 +85,7 @@ class _AppRootState extends State<AppRoot> {
 
   Future<void> _resetAndRestart() async {
     await widget.prefs.clear();
-    final location = await _bootstrap(widget.prefs);
+    final location = await bootstrapApp(widget.prefs);
     setState(() {
       _initialLocation = location;
       _scopeKey = UniqueKey();

@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:daily_ruffian/features/habits/data/habit.dart';
+import 'package:daily_ruffian/features/notifications/data/notification_item.dart';
 import 'package:daily_ruffian/main.dart';
 
 void main() {
@@ -13,6 +17,23 @@ void main() {
       'streak_last_open_date': '2026-07-16',
       'settings_display_name': 'Ruffian',
       'greeting_completed': '2026-07-17',
+      'habits': jsonEncode([
+        const Habit(
+          id: '1',
+          title: 'Drink water',
+          timeOfDay: HabitTimeOfDay.morning,
+          colorKey: 'blue',
+        ).toJson(),
+      ]),
+      'notifications': jsonEncode([
+        const NotificationItem(
+          id: '1',
+          avatarColorKey: 'pink',
+          message: 'Test notification',
+          timestamp: '2026-07-17T08:00:00.000',
+        ).toJson(),
+      ]),
+      'notifications_last_seen_streak': 7,
     });
     final prefs = await SharedPreferences.getInstance();
 
@@ -47,6 +68,9 @@ void main() {
     // immediately records this as day 1 of a new streak rather than 0.
     expect(prefs.getInt('streak_count'), 1);
     expect(prefs.getString('settings_display_name'), isNull);
+    expect(prefs.getString('habits'), isNull);
+    expect(prefs.getString('notifications'), isNull);
+    expect(prefs.getInt('notifications_last_seen_streak'), isNull);
     expect(find.text('Good Morning,\nRuffian.'), findsOneWidget);
   });
 }

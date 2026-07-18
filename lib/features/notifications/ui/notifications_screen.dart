@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/local_date.dart';
 import '../../../shared/widgets/companion_mascot.dart';
+import '../../../shared/widgets/section_label.dart';
 import '../../habits/data/habit_colors.dart';
 import '../data/notification_item.dart';
 import '../logic/notification_providers.dart';
@@ -62,33 +63,19 @@ class _NotificationList extends StatelessWidget {
       padding: const EdgeInsets.all(Gap.md),
       children: [
         if (today.isNotEmpty) ...[
-          _GroupLabel('Today'),
+          const SectionLabel('Today'),
           const SizedBox(height: Gap.sm),
           for (final n in today) _NotificationRow(item: n),
           const SizedBox(height: Gap.md),
         ],
         if (earlier.isNotEmpty) ...[
-          _GroupLabel('Earlier'),
+          const SectionLabel('Earlier'),
           const SizedBox(height: Gap.sm),
           for (final n in earlier) _NotificationRow(item: n),
         ],
       ],
     );
   }
-}
-
-class _GroupLabel extends StatelessWidget {
-  const _GroupLabel(this.text);
-  final String text;
-
-  @override
-  Widget build(BuildContext context) => Text(
-        text.toUpperCase(),
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0.5),
-      );
 }
 
 class _NotificationRow extends StatelessWidget {
