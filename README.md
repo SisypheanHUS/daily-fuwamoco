@@ -13,9 +13,9 @@ leaning on gamification or productivity pressure.
 
 | | | |
 |---|---|---|
-| ![Greeting](docs/screenshots/greeting.jpg) Morning greeting | ![Home](docs/screenshots/home.jpg) Home | ![Morning check-in](docs/screenshots/morning-checkin.jpg) Morning check-in |
-| ![Evening reflection](docs/screenshots/evening-reflection.jpg) Evening reflection | ![Rituals](docs/screenshots/rituals.jpg) Rituals (habits) | ![Calendar](docs/screenshots/calendar.jpg) Calendar |
-| ![Notifications](docs/screenshots/notifications.jpg) Notifications | ![Collection](docs/screenshots/collection.jpg) Collection | ![Settings](docs/screenshots/settings.jpg) Settings |
+| ![Greeting](docs/screenshots/greeting.png) Morning greeting | ![Home](docs/screenshots/home.png) Home | ![Morning check-in](docs/screenshots/morning-checkin.png) Morning check-in |
+| ![Evening reflection](docs/screenshots/evening-reflection.png) Evening reflection | ![Rituals](docs/screenshots/rituals.png) Rituals (habits) | ![Calendar](docs/screenshots/calendar.png) Calendar |
+| ![Notifications](docs/screenshots/notifications.png) Notifications | ![Collection](docs/screenshots/collection.png) Collection | ![Settings](docs/screenshots/settings.png) Settings |
 
 ## Features
 
