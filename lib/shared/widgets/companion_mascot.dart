@@ -1,13 +1,13 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+
+import 'breathing.dart';
 
 /// An original, abstract little companion — round body, soft ears, dot eyes.
 /// Deliberately generic (no species markers, no specific palette) so it never
 /// resembles a copyrighted character; it's a stand-in for real character art.
-/// Idles with a gentle breathing loop; pass [size] to reuse it small (home)
-/// or large (greeting hero).
-class CompanionMascot extends StatefulWidget {
+/// Idles with a gentle breathing loop ([Breathing]); pass [size] to reuse it
+/// small (home) or large (greeting hero).
+class CompanionMascot extends StatelessWidget {
   const CompanionMascot({
     super.key,
     this.size = 96,
@@ -32,73 +32,16 @@ class CompanionMascot extends StatefulWidget {
   final Duration phaseOffset;
 
   @override
-  State<CompanionMascot> createState() => _CompanionMascotState();
-}
-
-class _CompanionMascotState extends State<CompanionMascot>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 2600),
-  );
-
-  Timer? _startTimer;
-
-  @override
-  void initState() {
-    super.initState();
-    if (!widget.animate) return;
-    // Skip the Timer entirely for the common zero-offset case — a pending
-    // Future.delayed(Duration.zero) is still an unresolved Timer, and widget
-    // tests that don't pumpAndSettle correctly flag it as leaked.
-    if (widget.phaseOffset == Duration.zero) {
-      _controller.repeat(reverse: true);
-    } else {
-      _startTimer = Timer(widget.phaseOffset, () {
-        if (mounted) _controller.repeat(reverse: true);
-      });
-    }
-  }
-
-  @override
-  void didUpdateWidget(covariant CompanionMascot oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.animate == oldWidget.animate) return;
-    if (widget.animate) {
-      _controller.repeat(reverse: true);
-    } else {
-      _controller.stop();
-      _controller.value = 0;
-    }
-  }
-
-  @override
-  void dispose() {
-    _startTimer?.cancel();
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final color = widget.color ?? Theme.of(context).colorScheme.primary;
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        final breathe = Curves.easeInOut.transform(_controller.value);
-        return Transform.translate(
-          offset: Offset(0, -2 * breathe),
-          child: Transform.scale(
-            scale: 1.0 + 0.02 * breathe,
-            child: child,
-          ),
-        );
-      },
+    final resolvedColor = color ?? Theme.of(context).colorScheme.primary;
+    return Breathing(
+      animate: animate,
+      phaseOffset: phaseOffset,
       child: SizedBox(
-        width: widget.size,
-        height: widget.size,
+        width: size,
+        height: size,
         child: CustomPaint(
-          painter: _CompanionPainter(color: color, sleepy: widget.sleepy),
+          painter: _CompanionPainter(color: resolvedColor, sleepy: sleepy),
         ),
       ),
     );
