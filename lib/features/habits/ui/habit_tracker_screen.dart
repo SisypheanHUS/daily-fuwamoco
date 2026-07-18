@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/local_date.dart';
 import '../../../core/utils/streak_math.dart';
+import '../../../shared/widgets/fanart_avatar.dart';
 import '../../../shared/widgets/fuwa_card.dart';
 import '../../../shared/widgets/section_label.dart';
 import '../../../shared/widgets/twins_mascot.dart';
@@ -23,12 +24,7 @@ class HabitTrackerScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(Gap.xs),
-          child: ClipOval(
-            child: Image.asset('assets/fanart/wiggle-ear.gif', fit: BoxFit.cover),
-          ),
-        ),
+        leading: const FanArtLeading('assets/fanart/wiggle-ear.gif'),
         title: const Text('Rituals'),
         actions: [
           IconButton(

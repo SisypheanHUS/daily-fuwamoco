@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/providers.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../shared/widgets/fanart_avatar.dart';
 import '../../../shared/widgets/section_label.dart';
 import '../../greeting/data/greeting_context.dart';
 import '../../greeting/logic/greeting_providers.dart';
@@ -20,12 +21,7 @@ class SettingsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(Gap.xs),
-          child: ClipOval(
-            child: Image.asset('assets/fanart/cute.jpg', fit: BoxFit.cover),
-          ),
-        ),
+        leading: const FanArtLeading('assets/fanart/cute.jpg'),
         title: const Text('Settings'),
       ),
       body: ListView(
