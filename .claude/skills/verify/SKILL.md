@@ -78,3 +78,26 @@ browser and can take 30s+; later reloads boot in ~4-7s.
   sessions have consistently restarted rather than hot-reloaded, so hot
   reload's behavior for router/shell changes specifically hasn't actually
   been tested here.
+- Flutter web registers a service worker that aggressively caches the built
+  bundle. A tab left open across a `flutter run` restart can keep rendering
+  the *previous* build indefinitely (looked exactly like a missing route:
+  "Coming soon" for a screen that was already implemented). If a restarted
+  app doesn't reflect a source change, don't assume the code is wrong —
+  open a **fresh tab** first (`tabs_create_mcp`), or unregister the service
+  worker via `navigator.serviceWorker.getRegistrations().then(rs =>
+  rs.map(r => r.unregister()))` and reload with a cache-busting query param.
+- Injecting data into `localStorage` via `javascript_tool` on an
+  **already-running** tab does not retroactively update Riverpod state —
+  providers read prefs once at construction, not on every localStorage
+  change. It looks identical to "the toggle/add didn't work" (nothing
+  visibly changes) but isn't a reactivity bug — it's a test-methodology
+  mismatch. Drive state changes through the actual UI (or a fresh page load
+  that re-runs `main()`) instead of poking storage mid-session.
+- Manual mouse click-drag in Chrome does not reliably scroll a Flutter-web
+  `ListView` the way a real touchscreen or a `flutter test`
+  `WidgetTester.drag`/`dragUntilVisible` does — content below the fold can
+  be genuinely unreachable by browser-automation drag/scroll alone. Treat
+  automated widget-test scrolling as the source of truth for "does the
+  off-screen content react correctly"; use manual browser verification for
+  what's already on-screen, not as proof something below the fold is
+  broken just because a drag didn't move it.

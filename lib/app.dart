@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/theme/app_theme.dart';
+import 'features/calendar/ui/calendar_screen.dart';
 import 'features/greeting/ui/greeting_screen.dart';
 import 'features/habits/ui/habit_tracker_screen.dart';
 import 'features/home/ui/home_screen.dart';
@@ -36,7 +37,9 @@ class _DailyRuffianAppState extends State<DailyRuffianApp> {
             ],
           ),
           StatefulShellBranch(
-            routes: [GoRoute(path: '/calendar', builder: (_, _) => const _NotBuiltYet())],
+            routes: [
+              GoRoute(path: '/calendar', builder: (_, _) => const CalendarScreen()),
+            ],
           ),
           StatefulShellBranch(
             routes: [GoRoute(path: '/settings', builder: (_, _) => const SettingsScreen())],
@@ -59,15 +62,4 @@ class _DailyRuffianAppState extends State<DailyRuffianApp> {
       routerConfig: _router,
     );
   }
-}
-
-/// Placeholder for the Calendar tab until Phase 3 builds it — keeps the
-/// 4-tab shell wired up and testable one phase early rather than adding a
-/// 5th branch later, which would be a bigger routing diff.
-class _NotBuiltYet extends StatelessWidget {
-  const _NotBuiltYet();
-
-  @override
-  Widget build(BuildContext context) =>
-      const Scaffold(body: Center(child: Text('Coming soon')));
 }
