@@ -1,16 +1,14 @@
 # Daily FUWAMOCO
 
-![Banner](docs/screenshots/banner.png)
-
 ## Screenshots
 
 <img src="docs/screenshots/greeting-demo.gif" alt="Morning greeting demo" width="280" />
 
 | | | |
 |---|---|---|
-| ![Greeting](docs/screenshots/greeting.png) Morning greeting | ![Home](docs/screenshots/home.png) Home | ![Morning check-in](docs/screenshots/morning-checkin.png) Morning check-in |
-| ![Evening reflection](docs/screenshots/evening-reflection.png) Evening reflection | ![Rituals](docs/screenshots/rituals.png) Rituals (habits) | ![Calendar](docs/screenshots/calendar.png) Calendar |
-| ![Notifications](docs/screenshots/notifications.png) Notifications | ![Collection](docs/screenshots/collection.png) Collection | ![Settings](docs/screenshots/settings.png) Settings |
+| ![Home](docs/screenshots/home.png) Home | ![Morning check-in](docs/screenshots/morning-checkin.png) Morning check-in | ![Evening reflection](docs/screenshots/evening-reflection.png) Evening reflection |
+| ![Rituals](docs/screenshots/rituals.png) Rituals (habits) | ![Calendar](docs/screenshots/calendar.png) Calendar | ![Notifications](docs/screenshots/notifications.png) Notifications |
+| ![Collection](docs/screenshots/collection.png) Collection | ![Settings](docs/screenshots/settings.png) Settings | |
 
 Daily FUWAMOCO is a cozy companion app inspired by FUWAMOCO and, especially,
 Mococo's heartfelt pep talks that somehow always arrive at the right time.
