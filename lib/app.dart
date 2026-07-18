@@ -30,7 +30,7 @@ class _DailyRuffianAppState extends State<DailyRuffianApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Daily Ruffian',
+      title: 'Daily FUWAMOCO',
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       routerConfig: _router,

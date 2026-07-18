@@ -33,6 +33,6 @@ flutter:
     - assets/schedule/schedule.json
 
   fonts:
-    - family: Quicksand
+    - family: Plus Jakarta Sans
       fonts:
-        - asset: assets/fonts/Quicksand-Variable.ttf
+        - asset: assets/fonts/PlusJakartaSans-Variable.ttf

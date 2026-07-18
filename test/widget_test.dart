@@ -19,7 +19,7 @@ void main() {
     );
     await tester.pump();
 
-    expect(find.text('Daily Ruffian'), findsOneWidget);
+    expect(find.text('Daily FUWAMOCO'), findsOneWidget);
     expect(find.text('3 day streak'), findsOneWidget);
     expect(find.text('QUOTE OF THE DAY'), findsOneWidget);
     expect(find.text('NEXT STREAM'), findsOneWidget);
@@ -49,7 +49,7 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
 
-    expect(find.text('Daily Ruffian'), findsOneWidget); // home
+    expect(find.text('Daily FUWAMOCO'), findsOneWidget); // home
     expect(prefs.getString('greeting_completed'), isNotNull);
   });
 }

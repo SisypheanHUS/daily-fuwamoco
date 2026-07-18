@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 /// An original, abstract little companion — round body, soft ears, dot eyes.
@@ -6,13 +8,28 @@ import 'package:flutter/material.dart';
 /// Idles with a gentle breathing loop; pass [size] to reuse it small (home)
 /// or large (greeting hero).
 class CompanionMascot extends StatefulWidget {
-  const CompanionMascot({super.key, this.size = 96, this.color, this.sleepy = false});
+  const CompanionMascot({
+    super.key,
+    this.size = 96,
+    this.color,
+    this.sleepy = false,
+    this.animate = true,
+    this.phaseOffset = Duration.zero,
+  });
 
   final double size;
   final Color? color;
 
   /// Half-closed happy eyes for the morning greeting; open round eyes elsewhere.
   final bool sleepy;
+
+  /// Settings' "Reduce motion" plumbs through here — false freezes the
+  /// mascot at its resting pose instead of running the breathing loop.
+  final bool animate;
+
+  /// Delays the start of the breathing loop — [TwinsMascot] staggers its two
+  /// mascots with this so they don't bob in lockstep.
+  final Duration phaseOffset;
 
   @override
   State<CompanionMascot> createState() => _CompanionMascotState();
@@ -23,10 +40,41 @@ class _CompanionMascotState extends State<CompanionMascot>
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 2600),
-  )..repeat(reverse: true);
+  );
+
+  Timer? _startTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    if (!widget.animate) return;
+    // Skip the Timer entirely for the common zero-offset case — a pending
+    // Future.delayed(Duration.zero) is still an unresolved Timer, and widget
+    // tests that don't pumpAndSettle correctly flag it as leaked.
+    if (widget.phaseOffset == Duration.zero) {
+      _controller.repeat(reverse: true);
+    } else {
+      _startTimer = Timer(widget.phaseOffset, () {
+        if (mounted) _controller.repeat(reverse: true);
+      });
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant CompanionMascot oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.animate == oldWidget.animate) return;
+    if (widget.animate) {
+      _controller.repeat(reverse: true);
+    } else {
+      _controller.stop();
+      _controller.value = 0;
+    }
+  }
 
   @override
   void dispose() {
+    _startTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }

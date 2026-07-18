@@ -4,9 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_theme.dart';
-import '../../../shared/widgets/companion_mascot.dart';
+import '../../../shared/widgets/twins_mascot.dart';
 import '../../content/data/quote_repository.dart';
 import '../../schedule/data/schedule_repository.dart';
+import '../../settings/logic/settings_controller.dart';
 import '../../streak/logic/streak_service.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -17,16 +18,17 @@ class HomeScreen extends ConsumerWidget {
     final streak = ref.watch(streakProvider);
     final quote = ref.watch(quoteOfTheDayProvider).value;
     final nextStream = ref.watch(nextStreamProvider).value;
+    final reduceMotion = ref.watch(settingsProvider).reduceMotion;
     final textTheme = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
-        leading: const Padding(
-          padding: EdgeInsets.all(Gap.xs),
-          child: CompanionMascot(size: 36),
+        leading: Padding(
+          padding: const EdgeInsets.all(Gap.xs),
+          child: TwinsMascot(mascotSize: 20, animate: !reduceMotion),
         ),
-        title: const Text('Daily Ruffian'),
+        title: const Text('Daily FUWAMOCO'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings_outlined),
@@ -120,7 +122,7 @@ class _Card extends StatelessWidget {
       padding: const EdgeInsets.all(Gap.md),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(Corners.md),
       ),
       child: child,
     );
@@ -146,7 +148,7 @@ class _ActionCard extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(Corners.md),
         onTap: onTap,
         child: Container(
           width: double.infinity,
@@ -155,7 +157,7 @@ class _ActionCard extends StatelessWidget {
             vertical: Gap.md,
           ),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(Corners.md),
             border: Border.all(color: scheme.outlineVariant),
           ),
           child: Row(

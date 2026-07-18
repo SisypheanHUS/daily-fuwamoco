@@ -12,7 +12,7 @@ import '../../content/data/wallpaper_repository.dart';
 import '../../schedule/data/schedule_repository.dart';
 import '../../settings/logic/settings_controller.dart';
 import '../../streak/logic/streak_service.dart';
-import '../../../shared/widgets/companion_mascot.dart';
+import '../../../shared/widgets/twins_mascot.dart';
 import '../../../shared/widgets/wallpaper_background.dart';
 import '../data/greeting_context.dart';
 import '../logic/greeting_providers.dart';
@@ -107,6 +107,7 @@ class _GreetingScreenState extends ConsumerState<GreetingScreen>
     final quote = ref.watch(quoteOfTheDayProvider).value;
     final streak = ref.watch(streakProvider);
     final nextStream = ref.watch(nextStreamProvider).value;
+    final reduceMotion = ref.watch(settingsProvider).reduceMotion;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -126,7 +127,11 @@ class _GreetingScreenState extends ConsumerState<GreetingScreen>
                     const Spacer(flex: 2),
                     ScaleTransition(
                       scale: _mascotIn,
-                      child: const CompanionMascot(size: 128, sleepy: true),
+                      child: TwinsMascot(
+                        mascotSize: 92,
+                        sleepy: true,
+                        animate: !reduceMotion,
+                      ),
                     ),
                     const SizedBox(height: Gap.lg),
                     _Reveal(
@@ -135,7 +140,7 @@ class _GreetingScreenState extends ConsumerState<GreetingScreen>
                         'Good Morning,\nRuffian.',
                         textAlign: TextAlign.center,
                         style: textTheme.displaySmall?.copyWith(
-                          color: Colors.white,
+                          color: AppTheme.ink,
                           fontWeight: FontWeight.w700,
                           height: 1.15,
                         ),
@@ -149,7 +154,7 @@ class _GreetingScreenState extends ConsumerState<GreetingScreen>
                           quote.text,
                           textAlign: TextAlign.center,
                           style: textTheme.titleMedium?.copyWith(
-                            color: Colors.white.withValues(alpha: 0.85),
+                            color: AppTheme.inkSoft,
                             fontStyle: FontStyle.italic,
                           ),
                         ),
@@ -165,7 +170,7 @@ class _GreetingScreenState extends ConsumerState<GreetingScreen>
                       child: Text(
                         'tap to continue',
                         style: textTheme.bodySmall?.copyWith(
-                          color: Colors.white.withValues(alpha: 0.5),
+                          color: AppTheme.inkFaint,
                         ),
                       ),
                     ),
@@ -214,7 +219,7 @@ class _FooterInfo extends StatelessWidget {
     final style = Theme.of(context)
         .textTheme
         .bodyLarge
-        ?.copyWith(color: Colors.white.withValues(alpha: 0.9));
+        ?.copyWith(color: AppTheme.ink, fontWeight: FontWeight.w600);
     final nextLabel = next == null
         ? 'Next stream: TBA'
         : 'Next stream: ${next!.title} · ${DateFormat('EEE d MMM, HH:mm').format(next!.start)}';
